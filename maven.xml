@@ -1,0 +1,16 @@
+<project>
+
+  <postGoal name="test:test-resources">
+	<attainGoal name="gettext:dist"/>
+  </postGoal>
+
+  <postGoal name="dist:prepare-src-filesystem">
+	<copy toDir="${maven.dist.src.assembly.dir}/po" overwrite="true">
+	  <fileset dir="po">
+		<includes name="*.po"/>
+		<includes name="*.pot"/>
+	  </fileset>
+	</copy>
+  </postGoal>
+  
+</project>

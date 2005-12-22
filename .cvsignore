@@ -1,0 +1,7 @@
+.classpath
+.packaging
+.project
+.settings
+jcoverage.ser
+target
+velocity.log

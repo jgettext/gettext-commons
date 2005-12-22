@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <extend>../shared/m1-project.xml</extend>
+
+  <pomVersion>3</pomVersion>
+
+  <groupId>xnap-commons</groupId>
+  <artifactId>gettext-commons</artifactId>
+
+  <name>Gettext Commons</name>
+  <currentVersion>0.9</currentVersion>
+  <package>org.xnap.commons</package>
+
+  <description>A library that supports gettext-based internationalization
+  (i18n) of Java applications.</description>
+
+  <shortDescription>Gettext support library</shortDescription>
+
+  <siteDirectory>/home/groups/x/xn/xnap-commons/htdocs/gettext-commons</siteDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/xnap-commons:gettext-commons</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sf.net:/cvsroot/xnap-commons:gettext-commons</developerConnection>
+    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xnap-commons/gettext-commons/</url>
+  </repository>
+
+  <developers>
+    <developer>
+      <name>Felix Berger</name>
+      <id>bflat1</id>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <url>http://www.felix.beldesign.de/</url>
+      <timezone>+2</timezone>
+    </developer>
+    <developer>
+      <name>Tammo van Lessen</name>
+      <id>vanto</id>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <url>http://taval.de/</url>
+      <timezone>+2</timezone>
+    </developer>
+    <developer>
+      <name>Steffen Pingel</name>
+      <id>squig</id>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <url>http://steffenpingel.de</url>
+      <timezone>+2</timezone>
+    </developer>
+  </developers>
+
+  <dependencies>
+    <dependency>
+      <groupId>statcvs</groupId>
+      <artifactId>maven-statcvs-plugin</artifactId>
+      <version>2.6</version>
+      <type>plugin</type>
+    </dependency>
+	<dependency>
+	  <groupId>maven-plugins</groupId>
+	  <artifactId>maven-cobertura-plugin</artifactId>
+	  <version>1.1.1</version>
+	  <type>plugin</type>
+    </dependency>
+	<dependency>
+      <groupId>xnap-commons</groupId>
+      <artifactId>maven-gettext-plugin</artifactId>
+      <version>1.1</version>
+      <type>plugin</type>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
+    <unitTest>
+      <includes>
+        <include>**/*Test.java</include>
+      </includes>
+	</unitTest>
+    <resources>
+      <resource>
+        <directory>src/conf</directory>
+      </resource>
+    </resources>
+  </build>
+
+</project>
