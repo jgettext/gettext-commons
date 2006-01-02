@@ -1,0 +1,10 @@
+2006-01-03  Steffen Pingel  <squig@users.sourceforge.net>
+
+	* src/java/org/xnap/commons/i18n/I18nFactory.java: Implemented
+	weak listener.
+
+2005-12-24  Steffen Pingel  <squig@users.sourceforge.net>
+
+	* src/java/org/xnap/commons/i18n/: Created project: Moved i18n
+	package from XNap Commons to this project.
+

@@ -22,6 +22,7 @@ package org.xnap.commons.i18n;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -283,7 +284,14 @@ public class I18nFactory {
 			localeChangeListeners.add(listener);
 		}
 	}
-	
+
+	public static void addWeakLocaleChangeListener(LocaleChangeListener listener)
+	{
+		synchronized (localeChangeListeners) {
+			localeChangeListeners.add(new WeakLocaleChangeListener(listener));
+		}
+	}
+
 	public static void removeLocaleChangeListener(LocaleChangeListener listener)
 	{
 		synchronized (localeChangeListeners) {
@@ -291,23 +299,6 @@ public class I18nFactory {
 		}
 	}
 	
-	/* Not such a good idea
-	public synchronized static void addLocaleChangeListener(LocaleChangeListener listener)
-	{
-		localeChangeListeners.add(new WeakReference<LocaleChangeListener>(listener));
-	}
-	
-	public synchronized static void removeLocaleChangeListener(LocaleChangeListener listener)
-	{
-		for (Iterator<WeakReference<LocaleChangeListener>> it = localeChangeListeners.iterator(); it.hasNext();) {
-			WeakReference<LocaleChangeListener> item = it.next();
-			LocaleChangeListener itemListener = item.get();
-			if (itemListener == null || itemListener.equals(listener)) {
-				it.remove();
-			}
-		}
-	}
-	*/
 	protected static void fireLocaleChangedEvent(Locale newLocale)
 	{
 		LocaleChangeListener[] listeners;
@@ -320,6 +311,28 @@ public class I18nFactory {
 				listeners[i].localeChanged(event);
 			}
 		}		
+	}
+	
+	protected static class WeakLocaleChangeListener implements LocaleChangeListener {
+
+		private WeakReference reference;
+		
+		public WeakLocaleChangeListener(LocaleChangeListener listener)
+		{
+			reference = new WeakReference(listener);
+		}
+		
+		public void localeChanged(LocaleChangeEvent event) 
+		{
+			Object listener = reference.get();
+			if (listener != null) {
+				((LocaleChangeListener)listener).localeChanged(event);
+			}
+			else {
+				I18nFactory.removeLocaleChangeListener(this);
+			}
+		}
+		
 	}
 	
 }
