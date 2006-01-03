@@ -16,9 +16,7 @@
  */
 package org.xnap.commons.i18n;
 import java.util.Locale;
-
 import junit.framework.TestCase;
-
 import org.xnap.commons.i18n.testpackage.MockResourceBundle;
 
 /**
@@ -162,7 +160,31 @@ public class I18nTest extends TestCase {
 		assertEquals("Datei", i18nDE.trn("File", "{0} Files", 1, new Integer(1)));		
 		assertEquals("2 Dateien", i18nDE.trn("File", "{0} Files", 2, new Integer(2)));		
 	}
-	
+
+	public void testTrn1()
+	{
+		assertEquals("Foo foo ", i18nEN.trn("Foo {0} ", "Foos {0}", 1, "foo"));
+	}
+
+	public void testTrn2()
+	{
+		assertEquals("Foo bar foo", i18nEN.trn("Foo {1} {0}", "Foos", 1, "foo", "bar"));
+		assertEquals("Foo foo bar", i18nEN.trn("Foo {0} {1}", "Foos", 1, "foo", "bar"));
+	}
+
+	public void testTrn3()
+	{
+		assertEquals("Foo bar baz foo", i18nEN.trn("Foo {1} {2} {0}", "Foos", 1, "foo", "bar", "baz"));
+		assertEquals("Foo foo bar baz", i18nEN.trn("Foo {0} {1} {2}", "Foos", 1, "foo", "bar", "baz"));
+	}
+
+	public void testTrn4()
+	{
+		assertEquals("Foo bar baz boing foo", i18nEN.trn("Foo {1} {2} {3} {0}", "Foos", 1, "foo", "bar", "baz", "boing"));
+		assertEquals("Foo foo bar baz boing", i18nEN.trn("Foo {0} {1} {2} {3}", "Foos", 1, "foo", "bar", "baz", "boing"));
+	}
+
+
 	public void testSetEmptyResources()
 	{
 		// this should load the empty resource bundle

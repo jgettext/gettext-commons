@@ -83,15 +83,10 @@
       </includes>
 	  <resources>
 		<resource>
-         <directory>src/test-resources</directory>
+		  <directory>src/test-resources</directory>
         </resource>
       </resources>
 	</unitTest>
-    <resources>
-      <resource>
-        <directory>src/conf</directory>
-      </resource>
-    </resources>
   </build>
-
+  
 </project>

@@ -30,26 +30,25 @@ import java.util.ResourceBundle;
 
 /**
  * Provides methods for internationalization.
- * 
- * All text messages wrapped with one of the methods {@link #tr(String)}, 
- * {@link #trc(String, String)}, {@link #marktr(String)}, etc. can be 
- * extracted into a pot file using xgettext:
+ * <p>
+ * All text messages wrapped with one of the methods {@link #tr(String)},
+ * {@link #trc(String, String)}, {@link #marktr(String)},
+ * {@link #trn(String, String, long)} etc. can be extracted into a pot file
+ * using <code>xgettext</code> from <a
+ * href="http://www.gnu.org/software/gettext/">GNU gettext</a>:
+ * <p>
  * 
  * <pre>
- * xgettext --from-code=UTF-8 -ktrc -ktr -kmarktr -ktrn:1,2 \
-	`find -name "*.java"` -o po/keys.pot
+ *   xgettext -ktrc -ktr -kmarktr -ktrn:1,2 -o keys.pot *.java 
  * </pre>
  * 
- * Make sure the arguments only contain pure text messages and no instances
- * of the class string. Since the text is extracted
- *  
  * @author Steffen Pingel
  * @author Felix Berger
  * @author Tammo van Lessen
  */
 public class I18n {
 
-	// disabled until fixmes have 
+	// disabled until fixmes have been resolved
 	/*
 	private static final EmptyResourceBundle emptyBundle =
 		new EmptyResourceBundle();
@@ -199,7 +198,10 @@ public class I18n {
     /**
      * Returns <code>text</code> translated into the currently selected
      * language. Every user-visible string in the program must be wrapped
-     * into this function.  
+     * into this function. 
+     * 
+     * @param text text to translate
+     * @return the translation
      */
     public final String tr(String text)
     {
@@ -217,27 +219,45 @@ public class I18n {
      * <p>
      * Occurrences of {number} placeholders in text are replaced by 
      * <code>objects</code>.
+     * <p>
+     * Invokes {@link MessageFormat#format(java.lang.String, java.lang.Object[])}.
+     * 
+     * @param text text to translate
+     * @param arguments to <code>MessageFormat.format()</code>
+     * @return the translated text
      */
     public final String tr(String text, Object[] objects)
     {
 		return MessageFormat.format(tr(text), objects);
     }
 
+    /**
+     * Convenience method that invokes {@link #tr(String, Object[])}. 
+     */
     public final String tr(String text, Object o1)
     {
     	return tr(text, new Object[] { o1 });
     }
 
+    /**
+     * Convenience method that invokes {@link #tr(String, Object[])}. 
+     */
     public final String tr(String text, Object o1, Object o2)
     {
     	return tr(text, new Object[] { o1, o2 });
     }
 
+    /**
+     * Convenience method that invokes {@link #tr(String, Object[])}. 
+     */
     public final String tr(String text, Object o1, Object o2, Object o3)
     {
     	return tr(text, new Object[] { o1, o2, o3 });
     }
 
+    /**
+     * Convenience method that invokes {@link #tr(String, Object[])}. 
+     */
     public final String tr(String text, Object o1, Object o2, Object o3, Object o4)
     {
     	return tr(text, new Object[] { o1, o2, o3, o4 });
@@ -250,7 +270,7 @@ public class I18n {
      * @param text the key string to be translated.
      * @param pluralText the plural form of <code>text</code>.
      * @param objects object args to be formatted and substituted.
-     * @return
+     * @return the translated text
      */
     public final String trn(String text, String pluralText, long n)
 	{
@@ -269,7 +289,7 @@ public class I18n {
      * @param text the key string to be translated.
      * @param pluralText the plural form of <code>text</code>.
      * @param objects object args to be formatted and substituted.
-     * @return
+     * @return the translated text
      */
     public final String trn(String text, String pluralText, long n, 
 			Object[] objects)
@@ -277,24 +297,36 @@ public class I18n {
     	return MessageFormat.format(trn(text, pluralText, n), objects);
 	}
 
+    /**
+     * Convenience method that invokes {@link #trn(String, String, long)}. 
+     */
     public final String trn(String text, String pluralText, long n, 
 			Object o1)
     {
     	return trn(text, pluralText, n, new Object[] { o1 });
     }
 
+    /**
+     * Convenience method that invokes {@link #trn(String, String, long)}. 
+     */
     public final String trn(String text, String pluralText, long n, 
 			Object o1, Object o2)
     {
     	return trn(text, pluralText, n, new Object[] { o1, o2 });
     }
 
+    /**
+     * Convenience method that invokes {@link #trn(String, String, long)}. 
+     */
     public final String trn(String text, String pluralText, long n, 
 			Object o1, Object o2, Object o3)
     {
     	return trn(text, pluralText, n, new Object[] { o1, o2, o3 });
     }
 
+    /**
+     * Convenience method that invokes {@link #trn(String, String, long)}. 
+     */
     public final String trn(String text, String pluralText, long n, 
 			Object o1, Object o2, Object o3, Object o4)
     {

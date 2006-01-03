@@ -22,43 +22,30 @@ package org.xnap.commons.i18n;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.Properties;
 
 /**
- * Factory/Manager class that creates and caches I18n instances.
+ * Factory class that creates and caches I18n instances.
  * <p>
  * Given a {@link Class} object the factory looks up the resource bundle
  * responsible for handling message translations. The bundle is returned with
  * an {@link I18n} object wrapped around it which provides the translation
- * methods. How the lookup is done is described at {@link #getI18n(Class,
- * String)}.
+ * methods. The lookup is described at {@link #getI18n(Class,String)}.
  * <p>
  * Use the factory for creating <code>I18n</code> objects to make sure no
- * extraneous objects are created and for changing the locale globally with
- * {@link #setLocale(Locale)}.
- *  
+ * extraneous objects are created.
+ *   
  * @author Felix Berger
  * @author Tammo van Lessen
  * @author Steffen Pingel
- * 
- * TODO keep locale from setlocale and use it when creating new i18n instances
- * otherwise the user will have to call Locale.setDefault(newlocale) and
- * I18nFactory.setLocale(newLocale) or setdefault in setLocale and rename
- * setlocale to setDefault...
- * TODO rename to manager
  */
 public class I18nFactory {
 
 	private static HashMap i18nByPackage = new HashMap();
-	private static List i18ns = new ArrayList();
-	private static List localeChangeListeners = new ArrayList();
 	
 	/**
 	 * Default name for Message bundles, is "i18n.Messages".
@@ -69,6 +56,18 @@ public class I18nFactory {
 	 * is "i18n.properties".
 	 */
 	public static final String PROPS_FILENAME = "i18n.properties";
+	
+	/**
+	 * Clears the cache of i18n objects. Used by the test classes.
+	 */
+	static void clearCache()
+	{
+		for (Iterator it = i18nByPackage.values().iterator(); it.hasNext();) {
+			I18n i18n = (I18n)it.next();
+			I18nManager.getInstance().remove(i18n);
+		}
+		i18nByPackage.clear();
+	}
 	
 	static void registerI18n(I18n i18n, String base, Class clazz)
 	{
@@ -234,10 +233,11 @@ public class I18nFactory {
 	
 	/**
 	 * Uses the class loader to look for a messages properties file.
-	 * @param baseName
-	 * @param path
-	 * @param loader
-	 * @return
+	 *
+	 * @param baseName the base name of the resource bundle
+	 * @param path the path that prefixes baseName 
+	 * @param loader the class loader used to look up the bundle
+	 * @return the created instance
 	 */
 	static I18n findByBaseName(String baseName, String path, ClassLoader loader)
 	{
@@ -250,89 +250,19 @@ public class I18nFactory {
 		}
 	}
 	
-	private static I18n createI18n(String baseName, Locale locale, 
-								   ClassLoader loader)
+	/**
+	 * Creates a new i18n instance and registers it with {@link I18nManager}.
+	 * 
+	 * @param baseName the base name of the resource bundle
+	 * @param locale the locale
+	 * @param loader the class loader used to look up the bundle
+	 * @return the created instance
+	 */
+	private static I18n createI18n(String baseName, Locale locale, ClassLoader loader)
 	{
 		I18n i18n = new I18n(baseName, locale, loader);
-		i18ns.add(i18n);
+		I18nManager.getInstance().add(i18n);
 		return i18n;
-	}
-
-	/**
-	 * Sets the locale for all I18n instances that were instantiated through
-	 * the factory.
-	 * <p>
-	 * Use this method to globally change the locale for all I18n based 
-	 * translations. But note, this only works if the classes involved don't
-	 * cache the translated messages.
-	 * <p>
-	 * See {@link I18n#setLocale(Locale)}.
-	 */
-	public static void setLocale(Locale locale) 
-	{
-		for (Iterator it = i18ns.iterator(); it.hasNext();) {
-			I18n i18n = (I18n) it.next();
-			i18n.setLocale(locale);
-		}
-		
-		fireLocaleChangedEvent(locale);
-	}
-
-	public static void addLocaleChangeListener(LocaleChangeListener listener)
-	{
-		synchronized (localeChangeListeners) {
-			localeChangeListeners.add(listener);
-		}
-	}
-
-	public static void addWeakLocaleChangeListener(LocaleChangeListener listener)
-	{
-		synchronized (localeChangeListeners) {
-			localeChangeListeners.add(new WeakLocaleChangeListener(listener));
-		}
-	}
-
-	public static void removeLocaleChangeListener(LocaleChangeListener listener)
-	{
-		synchronized (localeChangeListeners) {
-			localeChangeListeners.remove(listener);
-		}
-	}
-	
-	protected static void fireLocaleChangedEvent(Locale newLocale)
-	{
-		LocaleChangeListener[] listeners;
-		synchronized (localeChangeListeners) {
-			listeners = (LocaleChangeListener[])localeChangeListeners.toArray(new LocaleChangeListener[0]);
-		}
-		if (listeners.length > 0) {
-			LocaleChangeEvent event = new LocaleChangeEvent(I18nFactory.class, newLocale);
-			for (int i = listeners.length - 1; i >= 0; i--) {
-				listeners[i].localeChanged(event);
-			}
-		}		
-	}
-	
-	protected static class WeakLocaleChangeListener implements LocaleChangeListener {
-
-		private WeakReference reference;
-		
-		public WeakLocaleChangeListener(LocaleChangeListener listener)
-		{
-			reference = new WeakReference(listener);
-		}
-		
-		public void localeChanged(LocaleChangeEvent event) 
-		{
-			Object listener = reference.get();
-			if (listener != null) {
-				((LocaleChangeListener)listener).localeChanged(event);
-			}
-			else {
-				I18nFactory.removeLocaleChangeListener(this);
-			}
-		}
-		
 	}
 	
 }

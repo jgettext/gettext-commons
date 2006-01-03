@@ -19,6 +19,8 @@
  */
 package org.xnap.commons.i18n;
 
+import java.util.Locale;
+
 /**
  * Defines the requirements for classes that get notified when the locale
  * is changed. 

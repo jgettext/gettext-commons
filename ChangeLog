@@ -1,5 +1,8 @@
 2006-01-03  Steffen Pingel  <squig@users.sourceforge.net>
 
+	* src/java/org/xnap/commons/i18n/I18nManager.java: Moved
+	non-factory related methods to this class.
+
 	* src/java/org/xnap/commons/i18n/I18nFactory.java: Implemented
 	weak listener.
 
