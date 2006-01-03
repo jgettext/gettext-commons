@@ -72,7 +72,6 @@ public class I18nFactory {
 	static void registerI18n(I18n i18n, String base, Class clazz)
 	{
 		String path = clazz.getName();
-		// TODO review (was assert())
 		if (!path.startsWith(base)) {
 			throw new IllegalArgumentException();
 		}
@@ -161,7 +160,8 @@ public class I18nFactory {
 						clazz.getClass().getName(), baseName);
 			}
 		}
-		
+
+		// look for cached versions and property files
 		String path = clazz.getName();
 		for (int index = path.lastIndexOf('.'); index != -1; 
 				index = path.lastIndexOf('.')) {
@@ -179,6 +179,7 @@ public class I18nFactory {
 			}
 		}
 		
+		// look for bundle with baseName
 		path = clazz.getName();
 		for (int index = path.lastIndexOf('.'); index != -1; 
 				index = path.lastIndexOf('.')) {
@@ -258,7 +259,8 @@ public class I18nFactory {
 	 * @param loader the class loader used to look up the bundle
 	 * @return the created instance
 	 */
-	private static I18n createI18n(String baseName, Locale locale, ClassLoader loader)
+	private static I18n createI18n(String baseName, Locale locale,
+								   ClassLoader loader)
 	{
 		I18n i18n = new I18n(baseName, locale, loader);
 		I18nManager.getInstance().add(i18n);

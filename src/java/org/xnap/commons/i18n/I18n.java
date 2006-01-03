@@ -61,7 +61,7 @@ public class I18n {
 	private ResourceBundle bundle;
 	/**
 	 * The bundle that is currently set. May not be used internally for value
-	 * retrieval if its empty, to avoid MissingResourceExceptions on 
+	 * retrieval if it's empty, to avoid MissingResourceExceptions on 
 	 * empty default bundles.
 	 */
 	private ResourceBundle setBundle;
@@ -112,9 +112,6 @@ public class I18n {
      * baseName are invalidated, since the bundle might be from a different
      * context. Subsequent calls to {@link #setLocale(Locale)} won't have
      * any effect.
-     * 
-     * TODO the class loader could be taken from newBundle, but how do
-     * we get the baseName?
      */
     public void setResources(ResourceBundle newBundle)
     {
@@ -182,6 +179,10 @@ public class I18n {
 	
 	/**
 	 * Sets the locale of the text in the source code. 
+	 * <p>
+	 * Only languages that have one singular and one plural form can be used as
+	 * source code locales, since {@link #trn(String, String, long)} takes exactly
+	 * these two forms as parameters.
 	 * @param locale the locale
 	 * @see #trc(String, String)
 	 * @throws NullPointerException if <code>locale</code> is 

@@ -77,8 +77,8 @@ public class I18nManager {
 	 * Use this method to globally change the locale for all I18n based
 	 * translations.
 	 * <p>
-	 * NOTE: This only works if the used {@link java.util.ResourceBundle}
-	 * objects do not cache translated messages.
+	 * NOTE: This only works if the objects that display messages
+	 * do not cache translated messages.
 	 * <p>
 	 * 
 	 * @param locale the new default locale
