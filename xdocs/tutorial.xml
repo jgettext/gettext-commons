@@ -6,14 +6,52 @@
   </properties>
   <body>
     <section name="Overview">
+	  <p>The Gettext Commons classes combine the power of the
+	  Unix-style <a href="http://www.gnu.org/software/gettext/">GNU
+	  gettext</a> tools with the widely used Java ResourceBundles. We
+	  find that the usual Java i18n approach of using custom property
+	  keys rather than the original text is cumbersome to use and
+	  makes programs harder to read. All user visible text is replaced
+	  by arbitrary keys complicating lookups of strings in the
+	  source.</p>
+
+	  <p>There are a few more advantages of using gettext:</p>
+
+	  <ul>
+		<li>Easy extraction of user visible strings</li>
+		<li>Strings are marked as fuzzy when the original text changes
+		  so translators can check if the translations still
+		  matches</li>
+		<li>Powerful plural handling</li>
+		<li>Build process integration through Maven</li>
+	  </ul>
+
       <p>This page gives an overview of the Gettext Commons and
       describes how to integrate the library into existing Java
       applications.</p>
+
+	  
+	  <p>Quick Links: <a
+		  href="examples/I18nExample.java">I18nExample.java</a>, <a
+		  href="/gettext-commons/apidocs/index.html">API
+		  Documentation</a></p>
+	</section>
+
+    <section name="Table of Contents">
+      <ol>
+		<li><a href="#Requirements">Requirements</a></li>
+		<li><a href="#Installation">Installation</a></li>
+		<li><a href="#Internationalization">Internationalization</a></li>
+		<li><a href="#Creating_Resource_Bundles">Creating Resource Bundles</a></li>
+		<li><a href="#Loading_Resource_Bundles">Loading Resource Bundles</a></li>
+		<li><a href="#Maven_Integration">Maven Integration</a></li>
+      </ol>
 	</section>
 
     <section name="Requirements">
 	  <ul>
 		<li>Java 1.3 (or higher)</li>
+		<li>GNU gettext</li>
 	  </ul>
 	</section>
 
@@ -28,12 +66,6 @@
 	</section>
 
 	<section name="Internationalization (I18n)">
-	  <p>The XNap Commons i18n classes combine the power of the Unix-style
-	  gettext tools with the widely used Java ResourceBundles. We find
-	  that the usual Java i18n approach of using custom property keys
-	  rather than the original text is cumbersome to use and makes
-	  programs harder to read since all displayed text is replaced by
-	  arbitrary keys.</p>
 
 	  <p>The Gettext Commons provide the class <tt><a
 		href="/gettext-commons/apidocs/org/xnap/commons/i18n/I18n.html">org.xnap.i18n.I18n</a></tt>
@@ -75,6 +107,11 @@ public class SampleClass
 }
       </source>
 
+	  <subsection name="Plural Handling">
+	  </subsection>
+
+	  <subsection name="Dynamically Changing Locales">
+
       <p>The I18n objects retrieved through the factory are cached there using
 	the package name of the provided class object, and they registered
 	with I18nManager. <a
@@ -103,42 +140,68 @@ public class LocaleChangeAwareClass implements LocaleChangeListener
 	}
 }
       </source>
+	  </subsection>
+	</section>
 
-	  <subsection name="Creating Bundles">
-		<p>In order to create the localized version the gettext tools
-		are used. The xgettext tool scans the source code for calls to
-	  <tt>tr()</tt>, <tt>trc()</tt> and <tt>trn()</tt> and creates a pot
-		file that contains all strings in the native language. This
-		file is translated to other languages with convenient tools
-		like <a href="http://www.poedit.org/">poedit</a>, KBabel or
-		Emacs. Finally <tt>msgcat</tt> is used to generate Java
-		property files that can be used with <tt>ResourceBundle</tt>
-		objects:</p>
+	<section name="Creating Resource Bundles">
+	  <p>Once the source code has been internationalized, i.e. all
+	  user visible strings are wrapped by a call to
+	  <code>I18n.tr()</code>, gettext can be used to extract these
+	  strings for localization.</p>
 
-		<source>
-# collect all keys
-xgettext --from-code=UTF-8 -ktrc -ktr -kmarktr -ktrn:1,2 src/*.java -o po/keys.pot
+	  <p>This 3 step process is illustrated in this figure:</p>
+	  
+	  <center><img src="gettext-structure.png" border="0"></img></center>
+		
+	  <ol>
+		<li>
+		  <b>xgettext</b> scans the source code for calls to
+		  <tt>tr()</tt>, <tt>trc()</tt> and <tt>trn()</tt> and creates
+		  a pot file that contains all strings in the native language.
+		</li>
+		<li>
+		  <b>msgmerge</b> merges the strings into a po file that
+		  contains translations for a single locale. This file can be
+		  edited with convenient tools like <a
+		  href="http://www.poedit.org/">poedit</a>, KBabel or Emacs.
+		</li>
+		<li>
+		  <b>msgfmt</b> is used to generate Java class files that
+		  extend the Java <tt>ResourceBundle</tt> class.
+		</li>
+	  </ol>
+
+	  <p>Here is simple example of running the gettext commands:</p>
+
+	  <source>
+# extract keys
+xgettext -ktrc -ktr -kmarktr -ktrn:1,2 -o po/keys.pot src/*.java 
 
 # merge keys into localized po file
-msgmerge --backup=numbered -U po/de.po po/keys.pot
+msgmerge -U po/de.po po/keys.pot
 
 # translate file
-kbabel po/de.po
+poedit po/de.po
 
-# create German ResourceBundle class file
-msgfmt --java2 -d src/conf -r org.foo.bar.i18n.Messages -l de de.po
+# create German ResourceBundle class file in app.i18n package
+msgfmt --java2 -d src/conf -r app.i18n.Messages -l de de.po
 </source>
-
-		<p>More Information: <a
-		href="examples/I18nExample.java">I18nExample.java</a>,
-		<a
-		href="/gettext-commons/apidocs/index.html">API
-		Documentation</a></p>
-
-	  </subsection>
     </section>
 
+	<section name="Loading Resource Bundles">
+	  <p>In order...</p>
+
+	  <p>Example <b>i18n.properties</b> file:</p>
+
+	  <source>
+basename=app.i18n.Messages</source>
+	</section>
+
 	<section name="Maven Integration">
+	  <p>If Maven is used for building the invocation of gettext can
+	  be easily integrated into the build process. Follow the
+	  appropriate link below for more information:</p>
+
 	  <ul>
 		<li><a
 				href="http://xnap-commons.sourceforge.net/m1/maven-gettext-plugin/index.html">Maven	1.x Gettext Plugin</a></li>
