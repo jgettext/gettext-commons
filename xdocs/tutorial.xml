@@ -72,7 +72,7 @@ System.out.println(i18n.trn("Copied file.", "Copied files.", 4));
 
 		<source>
 System.out.println(i18n.tr("Folder: {0}", new File("/home/xnap-commons"));
-System.out.println(i18n.trn("{0} file", "{0} files", 2, new Integer(5)));
+System.out.println(i18n.trn("{0} file", "{0} files", 5, new Integer(5)));
 </source>
 
 		<p>And sometimes it is necessary to provide different
