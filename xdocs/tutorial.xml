@@ -60,10 +60,10 @@ System.out.println(i18n.tr("This text will be translated"));
       <p>I18n also supports proper handling of plurals:</p>
 
       <source>
-System.out.println(i18n("Copied file.", "Copied files.", 1));
+System.out.println(i18n.trn("Copied file.", "Copied files.", 1));
 // -> will print "Copied file."
 
-System.out.println(i18n("Copied file.", "Copied files.", 4));
+System.out.println(i18n.trn("Copied file.", "Copied files.", 4));
 // -> will print "Copied files."
       </source>      
 
@@ -72,6 +72,7 @@ System.out.println(i18n("Copied file.", "Copied files.", 4));
 
 		<source>
 System.out.println(i18n.tr("Folder: {0}", new File("/home/xnap-commons"));
+System.out.println(i18n.trn("{0} file", "{0} files", 2, new Integer(0)));
 </source>
 
 		<p>And sometimes it is necessary to provide different
@@ -178,14 +179,19 @@ msgfmt --java2 -d src/conf -r app.i18n.Messages -l de de.po
 
     </section>
 	<section name="Loading Resource Bundles">
-	  <p>In order...</p>
+	  <p>In order to specify the name of the resource bundles you use, you
+	can create a <tt>i18n.properties</tt> file</p> and place it your
+	application's toplevel package. All subpackages will use this
+	configuration file.
 	  
-	  <p>Example <b>i18n.properties</b> file:</p>
-	  
+	  <p><b>i18n.properties</b> expects the base name of the resources as
+	the value of the key <tt>basename</tt>:</p>
 	  <source>
 basename=app.i18n.Messages
 	  </source>
 	</section>
+
+    <p>For more information on how the resource lookup works, please read <a href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nFactory.html#getI18n(java.lang.Class, java.lang.String)>here</a>.</p>
 
 	<section name="Maven Integration">
 	  <p>If Maven is used for building the invocation of gettext can
