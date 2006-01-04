@@ -28,26 +28,26 @@
 	</section>
 
 	<section name="Internationalization (I18n)">
-	  <p>The XNap Commons i18n classes combine the power of the
-	  Unix-style gettext tools with the widely used Java property
-	  files. We find that usual Java i18n approach of using custom
-	  property keys rather than the original text is cumbersome to use
-	  and makes programs harder to read since all displayed text is
-	  replaced by arbitrary keys.</p>
+	  <p>The XNap Commons i18n classes combine the power of the Unix-style
+	  gettext tools with the widely used Java ResourceBundles. We find
+	  that the usual Java i18n approach of using custom property keys
+	  rather than the original text is cumbersome to use and makes
+	  programs harder to read since all displayed text is replaced by
+	  arbitrary keys.</p>
 
 	  <p>The XNap Commons provide the class <tt><a
 		href="http://xnap-commons.sourceforge.net/apidocs/org/xnap/commons/i18n/I18n.html">org.xnap.i18n.I18n</a></tt>
-		that has static methods that need to be invoked each time a
+		that has methods that need to be invoked each time a
 		user visible string is used:</p>
-			
+
 	  <source>
-System.out.println(I18n.tr("This text will be translated"));</source>
+System.out.println(i18n.tr("This text will be translated"));</source>
 
 	  <p>In addition there is a method that uses the Java API
 		<tt>MessageFormat.format()</tt> for substitution:</p>
 
 		<source>
-System.out.println(I18n.tr("Four: {0}", 4));</source>
+System.out.println(i18n.tr("Four: {0}", 4));</source>
 
 		<p>And sometimes it is desirable to provide different
 		translations of the same word as some words may have multiple
@@ -58,10 +58,55 @@ System.out.println(I18n.tr("Four: {0}", 4));</source>
 System.out.println(I18n.trc("chat (verb)", "chat"));
 System.out.println(I18n.trc("chat (noun)", "chat"));</source>
 
+      <p>The preferable way to create an I18n object is through the
+	I18nFactory:</p>
+      
+      <source>
+public class SampleClass
+{
+	private static I18n i18n = I18nFactory.getI18n(SampleClass.class);
+
+	String localizedString;
+
+	public SampleClass()
+	{
+	        localizedString = i18n.tr("Hello, World");
+	}
+}
+      </source>
+
+      <p>The I18n objects retrieved through the factory are cached there using
+	the package name of the provided class object, and they registered
+	with I18nManager. I18nManager also lets your register independently
+	created I18n objects and provides means to change the locale of all
+	registered i18n objects thereby notifying possible
+	LocaleChangeListeners:</p>
+
+      <source>
+public class LocaleChangeAwareClass implements LocaleChangeListener
+{
+	private static I18n i18n = I18nFactory.getI18n(LocaleChangeAwareClass.class);
+
+	String localizedString;
+
+	public LocaleChangeListener()
+	{
+	        localizedString = i18n.tr("Hello, World");
+	        I18nManager.getInstance().addWeakLocaleChangeListener(this);
+	}
+
+	public void localeChanged(LocaleChangeEvent event)
+	{
+	        // update string
+	        localizedString = i18n.tr("Hello, World");
+	}
+}
+      </source>
+
 	  <subsection name="Creating Bundles">
 		<p>In order to create the localized version the gettext tools
 		are used. The xgettext tool scans the source code for calls to
-		<tt>I18n.tr()</tt> and <tt>I18n.trc()</tt> and creates a pot
+	  <tt>tr()</tt>, <tt>trc()</tt> and <tt>trn()</tt> and creates a pot
 		file that contains all strings in the native language. This
 		file is translated to other languages with convenient tools
 		like <a href="http://www.poedit.org/">poedit</a>, KBabel or
@@ -71,7 +116,7 @@ System.out.println(I18n.trc("chat (noun)", "chat"));</source>
 
 		<source>
 # collect all keys
-xgettext --from-code=UTF-8 -ktrc -ktr -kmarktr src/*.java -o po/keys.pot
+xgettext --from-code=UTF-8 -ktrc -ktr -kmarktr -ktrn:1,2 src/*.java -o po/keys.pot
 
 # merge keys into localized po file
 msgmerge --backup=numbered -U po/de.po po/keys.pot
@@ -79,19 +124,9 @@ msgmerge --backup=numbered -U po/de.po po/keys.pot
 # translate file
 kbabel po/de.po
 
-# create property file
-msgcat -p po/de.po -o src/i18n/myapp_de.properties</source>
-
-		<p>Before making any call to <tt>I18n.tr()</tt> it is
-		necessary to add a resource bundle that contains translations
-		for the current locale to the <tt>I18n</tt> class. The
-		following code snippet assumes that the property files are
-		located in the <tt>i18n</tt> directory and prefixed by the
-		application name <tt>myapp</tt> (see example above):</p>
-
-		<source>
-ResourceBundle resources = ResourceBundle.getBundle("i18n.myapp");
-I18n.addResources(resources);</source>
+# create German ResourceBundle class file
+msgfmt --java2 -d src/conf -r org.foo.bar.i18n.Messages -l de de.po
+</source>
 
 		<p>More Information: <a
 		href="examples/I18nExample.java">I18nExample.java</a>,

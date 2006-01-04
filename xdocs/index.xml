@@ -15,7 +15,7 @@
     </section>
 
     <section name="Download">
-	  <p>Stable release are available from our <a
+	  <p>Stable releases are available from our <a
 	  href="http://sourceforge.net/project/showfiles.php?group_id=121150&amp;package_id=132164">download
 	  page</a>. If you are using <a href="http://maven.apache.org"
 	  target="_blank">Maven</a> add the following dependencies to your
