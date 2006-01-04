@@ -88,7 +88,7 @@ System.out.println(i18n.trc("chat (noun)", "chat"));</source>
 	href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nFactory.html">I18nFactory</a>.
 	The factory caches the I18n object internally using the the package
 	name of the provided class object and registers it with
-	I18nManager. Thus all classes of the same package can use the same
+	I18nManager. Thus all classes of the same package will use the same
 	I18n instance.</p>
       
       <source>
