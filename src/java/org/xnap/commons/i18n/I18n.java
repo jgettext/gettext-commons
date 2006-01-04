@@ -224,7 +224,7 @@ public class I18n {
      * Invokes {@link MessageFormat#format(java.lang.String, java.lang.Object[])}.
      * 
      * @param text text to translate
-     * @param arguments to <code>MessageFormat.format()</code>
+     * @param objects arguments to <code>MessageFormat.format()</code>
      * @return the translated text
      */
     public final String tr(String text, Object[] objects)
@@ -270,7 +270,7 @@ public class I18n {
 	 * 
      * @param text the key string to be translated.
      * @param pluralText the plural form of <code>text</code>.
-     * @param objects object args to be formatted and substituted.
+     * @param n value that determines the plural form
      * @return the translated text
      */
     public final String trn(String text, String pluralText, long n)
@@ -289,6 +289,7 @@ public class I18n {
 	 * 
      * @param text the key string to be translated.
      * @param pluralText the plural form of <code>text</code>.
+     * @param n value that determines the plural form
      * @param objects object args to be formatted and substituted.
      * @return the translated text
      */

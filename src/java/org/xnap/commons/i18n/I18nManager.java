@@ -31,7 +31,7 @@ import java.util.Locale;
  * objects and {@link org.xnap.commons.i18n.LocaleChangeListener} objects.
  * <p>
  * The locale of all managed <code>I18n</code> objects can be changed by 
- * invoking {@link #setLocale(Locale)}.
+ * invoking {@link #setDefaultLocale(Locale)}.
  * 
  * @author Felix Berger
  * @author Steffen Pingel

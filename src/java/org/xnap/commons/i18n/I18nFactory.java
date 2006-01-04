@@ -143,7 +143,7 @@ public class I18nFactory {
 	 * @param clazz the package hierarchy of the clazz and its class loader
 	 * are used for resolving and loading the resource bundle
 	 * @param baseName the name of the underlying resource bundle
-	 * @return
+	 * @return created or cached <code>I18n</code> instance 
 	 * @throws MissingResourceException if no resource bundle was found
 	 */
 	public static I18n getI18n(Class clazz, String baseName)

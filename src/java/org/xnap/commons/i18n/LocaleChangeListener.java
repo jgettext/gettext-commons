@@ -28,7 +28,7 @@ import java.util.Locale;
  * <p>A component that implements this interface may dynamically change the 
  * language of all user visible strings.  
  * 
- * @see org.xnap.commons.i18n.I18nFactory#setLocale(Locale)
+ * @see org.xnap.commons.i18n.I18nManager#setDefaultLocale(Locale)
  * @author Steffen Pingel
  */
 public interface LocaleChangeListener {
