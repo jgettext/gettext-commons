@@ -33,7 +33,7 @@ import java.util.Properties;
  * <p>
  * Given a {@link Class} object the factory looks up the resource bundle
  * responsible for handling message translations. The bundle is returned with
- * an {@link I18n} object wrapped around it which provides the translation
+ * an {@link I18n} object wrapped around it, which provides the translation
  * methods. The lookup is described at {@link #getI18n(Class,String)}.
  * <p>
  * Use the factory for creating <code>I18n</code> objects to make sure no
@@ -136,7 +136,7 @@ public class I18nFactory {
 	 * resource/class name of the resource bundle, e.g
 	 * <code>org.xnap.commons.i18n.Messages</code>.
 	 * <p>
-	 * If after the first iteration no I18n instance has been found a second
+	 * If after the first iteration no I18n instance has been found, a second
 	 * search begins by looking for resource bundles having the name
 	 * <code>baseName</code>.
 	 * 

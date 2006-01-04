@@ -157,8 +157,8 @@ public class I18n {
 	/**
 	 * Tries to load a resource bundle for the locale. 
 	 * <p>
-	 * The resource bundle is then used for message translations. Note 
-	 * you have retrieve all messages anew after a locale change in order
+	 * The resource bundle is then used for message translations. Note, 
+	 * you have to retrieve all messages anew after a locale change in order
 	 * for them to be translated to the language specified by the new locale.
 	 * <p>
 	 * 
@@ -430,9 +430,9 @@ public class I18n {
 	 * @param comment the text translated + a disambiguation hint in brackets.
 	 * @param text the ambiguous key string
 	 *
-	 * @return <code>text</code> if the {@link Locale#getDefault() default
-	 * locale} is set to {@link Locale#ENGLISH}, the translated
-	 * <code>comment</code> otherwise.
+	 * @return <code>text</code> if the locale from <code>getResources().getLocale()
+	 * </code>  equals the set {@link #setSourceCodeLocale(Locale) source code locale},
+	 * <code>tr(comment)</code> otherwise.
 	 */
 	public final String trc(String comment, String text)
 	{

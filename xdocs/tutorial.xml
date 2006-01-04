@@ -35,8 +35,8 @@
 	  programs harder to read since all displayed text is replaced by
 	  arbitrary keys.</p>
 
-	  <p>The XNap Commons provide the class <tt><a
-		href="http://xnap-commons.sourceforge.net/apidocs/org/xnap/commons/i18n/I18n.html">org.xnap.i18n.I18n</a></tt>
+	  <p>The Gettext Commons provide the class <tt><a
+		href="/gettext-commons/apidocs/org/xnap/commons/i18n/I18n.html">org.xnap.i18n.I18n</a></tt>
 		that has methods that need to be invoked each time a
 		user visible string is used:</p>
 
@@ -59,7 +59,7 @@ System.out.println(I18n.trc("chat (verb)", "chat"));
 System.out.println(I18n.trc("chat (noun)", "chat"));</source>
 
       <p>The preferable way to create an I18n object is through the
-	I18nFactory:</p>
+	<a href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nFactory.html">I18nFactory</a>:</p>
       
       <source>
 public class SampleClass
@@ -77,10 +77,11 @@ public class SampleClass
 
       <p>The I18n objects retrieved through the factory are cached there using
 	the package name of the provided class object, and they registered
-	with I18nManager. I18nManager also lets your register independently
-	created I18n objects and provides means to change the locale of all
-	registered i18n objects thereby notifying possible
-	LocaleChangeListeners:</p>
+	with I18nManager. <a
+	href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nManager.html">I18nManager</a>
+	also lets your register independently created I18n objects and
+	provides means to change the locale of all registered i18n objects
+	thereby notifying possible LocaleChangeListeners:</p>
 
       <source>
 public class LocaleChangeAwareClass implements LocaleChangeListener
@@ -131,7 +132,7 @@ msgfmt --java2 -d src/conf -r org.foo.bar.i18n.Messages -l de de.po
 		<p>More Information: <a
 		href="examples/I18nExample.java">I18nExample.java</a>,
 		<a
-		href="http://xnap-commons.sourceforge.net/apidocs/org/xnap/commons/i18n/package-summary.html">API
+		href="/gettext-commons/apidocs/index.html">API
 		Documentation</a></p>
 
 	  </subsection>
