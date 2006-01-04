@@ -23,7 +23,8 @@
 
 <source>
 &lt;dependency&gt;
-  &lt;id&gt;gettext-commons&lt;/id&gt;
+  &lt;groupId&gt;gettext-commons&lt;/groupId&gt;
+  &lt;artifactId&gt;gettext-commons&lt;/artifactId&gt;
   &lt;version&gt;0.9&lt;/version&gt;
   &lt;url&gt;http://xnap-commons.sf.net/gettext-commons/&lt;/url&gt;
 &lt;/dependency&gt;
