@@ -56,42 +56,59 @@
 	</section>
 
     <section name="Installation">
-	  <subsection name="Windows">
-	  </subsection>
+      <subsection name="Windows">
+      </subsection>
+      
+      <subsection name="*nix">
+	<p>Most Unix systems and Linux distributions ship with gettext
+	  packages.</p>
+      </subsection>
+    </section>
 
-	  <subsection name="*nix">
-		<p>Most Unix systems and Linux distributions ship with gettext
-		packages.</p>
-	  </subsection>
-	</section>
+    <section name="Internationalization">
+      <p>The Gettext Commons provide the class <tt><a
+	    href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18n.html">I18n</a></tt>
+	that has methods that need to be invoked each time a
+	user visible string is used:</p>
+      
+      <source>
+I18n i18n = I18nFactory.getI18n(getClass());
 
-	<section name="Internationalization (I18n)">
+System.out.println(i18n.tr("This text will be translated"));
+</source>
 
-	  <p>The Gettext Commons provide the class <tt><a
-		href="/gettext-commons/apidocs/org/xnap/commons/i18n/I18n.html">org.xnap.i18n.I18n</a></tt>
-		that has methods that need to be invoked each time a
-		user visible string is used:</p>
+      <p>I18n also supports proper handling of plurals:</p>
 
-	  <source>
-System.out.println(i18n.tr("This text will be translated"));</source>
+      <source>
+System.out.println(i18n("Copied file.", "Copied files.", 1));
+// -> will print "Copied file."
 
-	  <p>In addition there is a method that uses the Java API
+System.out.println(i18n("Copied file.", "Copied files.", 4));
+// -> will print "Copied files."
+      </source>      
+
+	  <p>In addition there is a convenience methods that use the Java API
 		<tt>MessageFormat.format()</tt> for substitution:</p>
 
 		<source>
-System.out.println(i18n.tr("Four: {0}", 4));</source>
+System.out.println(i18n.tr("Folder: {0}", new File("/home/xnap-commons"));
+</source>
 
-		<p>And sometimes it is desirable to provide different
+		<p>And sometimes it is necessary to provide different
 		translations of the same word as some words may have multiple
 		meanings in the native language the program is written but
 		not in other languages:</p>
 
 		<source>
-System.out.println(I18n.trc("chat (verb)", "chat"));
-System.out.println(I18n.trc("chat (noun)", "chat"));</source>
+System.out.println(i18n.trc("chat (verb)", "chat"));
+System.out.println(i18n.trc("chat (noun)", "chat"));</source>
 
-      <p>The preferable way to create an I18n object is through the
-	<a href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nFactory.html">I18nFactory</a>:</p>
+      <p>The preferable way to create an I18n object is through the <a
+	href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nFactory.html">I18nFactory</a>.
+	The factory caches the I18n object internally using the the package
+	name of the provided class object and registers it with
+	I18nManager. Thus all classes of the same package can use the same
+	I18n instance.</p>
       
       <source>
 public class SampleClass
@@ -107,18 +124,11 @@ public class SampleClass
 }
       </source>
 
-	  <subsection name="Plural Handling">
-	  </subsection>
-
-	  <subsection name="Dynamically Changing Locales">
-
-      <p>The I18n objects retrieved through the factory are cached there using
-	the package name of the provided class object, and they registered
-	with I18nManager. <a
+      <p><a
 	href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nManager.html">I18nManager</a>
-	also lets your register independently created I18n objects and
-	provides means to change the locale of all registered i18n objects
-	thereby notifying possible LocaleChangeListeners:</p>
+	lets you register independently created I18n objects and provides
+	the facility to change the locale of all registered I18n objects thereby
+	notifying possible LocaleChangeListeners:</p>
 
       <source>
 public class LocaleChangeAwareClass implements LocaleChangeListener
@@ -140,13 +150,12 @@ public class LocaleChangeAwareClass implements LocaleChangeListener
 	}
 }
       </source>
-	  </subsection>
-	</section>
 
+    </section>
 	<section name="Creating Resource Bundles">
 	  <p>Once the source code has been internationalized, i.e. all
 	  user visible strings are wrapped by a call to
-	  <code>I18n.tr()</code>, gettext can be used to extract these
+	  <code>i18n.tr()</code>, xgettext can be used to extract these
 	  strings for localization.</p>
 
 	  <p>This 3 step process is illustrated in this figure:</p>
@@ -171,7 +180,7 @@ public class LocaleChangeAwareClass implements LocaleChangeListener
 		</li>
 	  </ol>
 
-	  <p>Here is simple example of running the gettext commands:</p>
+	  <p>Here is simple example of running the xgettext commands:</p>
 
 	  <source>
 # extract keys
@@ -186,31 +195,32 @@ poedit po/de.po
 # create German ResourceBundle class file in app.i18n package
 msgfmt --java2 -d src/conf -r app.i18n.Messages -l de de.po
 </source>
-    </section>
 
+    </section>
 	<section name="Loading Resource Bundles">
 	  <p>In order...</p>
-
+	  
 	  <p>Example <b>i18n.properties</b> file:</p>
-
+	  
 	  <source>
-basename=app.i18n.Messages</source>
+basename=app.i18n.Messages
+	  </source>
 	</section>
 
 	<section name="Maven Integration">
 	  <p>If Maven is used for building the invocation of gettext can
-	  be easily integrated into the build process. Follow the
-	  appropriate link below for more information:</p>
-
+	    be easily integrated into the build process. Follow the
+	    appropriate link below for more information:</p>
+	  
 	  <ul>
-		<li><a
-				href="http://xnap-commons.sourceforge.net/m1/maven-gettext-plugin/index.html">Maven	1.x Gettext Plugin</a></li>
-		<li><a
-				href="http://xnap-commons.sourceforge.net/m2/maven-gettext-plugin/index.html">Maven
-				2.x Gettext Plugin</a></li>
+	    <li><a
+		href="http://xnap-commons.sourceforge.net/m1/maven-gettext-plugin/index.html">Maven	1.x Gettext Plugin</a></li>
+	    <li><a
+		href="http://xnap-commons.sourceforge.net/m2/maven-gettext-plugin/index.html">Maven
+		2.x Gettext Plugin</a></li>
 	  </ul>
 	</section>
-
+	
   </body>
 </document>
 
