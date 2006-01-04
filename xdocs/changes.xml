@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<document>
+  <properties>
+    <title>Changes</title>
+  </properties>
+  <body>
+    <release version="0.9" date="2006-01-05">
+      <action dev="squig" type="add">
+		Initial release. The project was formerly part of the XNap
+		Commons and is now distributed seperately. The changes
+		described for this release were made since XNap Commons
+		0.9.3 which was the last XNap Commons release that contained
+		gettext classes.
+	  </action>
+      <action dev="squig" type="add">
+		
+      </action>
+	</release>
+  </body>
+</document>
+
+<!--
+Local Variables:
+sgml-indent-data: t
+End:
+-->

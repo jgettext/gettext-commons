@@ -4,11 +4,33 @@
 	<attainGoal name="gettext:dist"/>
   </postGoal>
 
+  <preGoal name="xdoc:transform">
+	<copy toDir="target/docs/examples" overwrite="true">
+	  <fileset dir="src/examples">
+		<includes name="**/*.java"/>
+	  </fileset>
+	</copy>
+  </preGoal>
+  
   <postGoal name="dist:prepare-src-filesystem">
 	<copy toDir="${maven.dist.src.assembly.dir}/po" overwrite="true">
 	  <fileset dir="po">
 		<includes name="*.po"/>
 		<includes name="*.pot"/>
+	  </fileset>
+	</copy>
+  </postGoal>
+
+  <postGoal name="dist:prepare-src-filesystem">
+	<copy toDir="${maven.dist.src.assembly.dir}/po" overwrite="true">
+	  <fileset dir="po">
+		<includes name="*.po"/>
+		<includes name="*.pot"/>
+	  </fileset>
+	</copy>
+	<copy toDir="${maven.dist.src.assembly.dir}/src/examples" overwrite="true">
+	  <fileset dir="src/examples">
+		<includes name="**/*.java"/>
 	  </fileset>
 	</copy>
   </postGoal>
