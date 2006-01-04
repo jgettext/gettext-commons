@@ -300,7 +300,8 @@ public class I18n {
 	}
 
     /**
-     * Convenience method that invokes {@link #trn(String, String, long)}. 
+     * Overloaded method that invokes {@link #trn(String, String, long, Object[])}
+     * passing <code>Object</code> arguments as an array. 
      */
     public final String trn(String text, String pluralText, long n, 
 			Object o1)
@@ -309,7 +310,8 @@ public class I18n {
     }
 
     /**
-     * Convenience method that invokes {@link #trn(String, String, long)}. 
+     * Overloaded method that invokes {@link #trn(String, String, long, Object[])}
+     * passing <code>Object</code> arguments as an array. 
      */
     public final String trn(String text, String pluralText, long n, 
 			Object o1, Object o2)
@@ -318,7 +320,8 @@ public class I18n {
     }
 
     /**
-     * Convenience method that invokes {@link #trn(String, String, long)}. 
+     * Overloaded method that invokes {@link #trn(String, String, long, Object[])}
+     * passing <code>Object</code> arguments as an array. 
      */
     public final String trn(String text, String pluralText, long n, 
 			Object o1, Object o2, Object o3)
@@ -327,7 +330,8 @@ public class I18n {
     }
 
     /**
-     * Convenience method that invokes {@link #trn(String, String, long)}. 
+     * Overloaded method that invokes {@link #trn(String, String, long, Object[])}
+     * passing <code>Object</code> arguments as an array. 
      */
     public final String trn(String text, String pluralText, long n, 
 			Object o1, Object o2, Object o3, Object o4)
