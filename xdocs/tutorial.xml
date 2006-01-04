@@ -46,10 +46,10 @@
     </section>
 
     <section name="Internationalization">
-      <p>The Gettext Commons provide the <tt><a
-	    href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18n.html">I18n</a>
-	    class </tt> that has methods that need to be invoked each time a
-	    user visible string is used:</p>
+      <p>The Gettext Commons provide the class <tt><a
+	    href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18n.html">I18n</a></tt>
+	    that has methods that need to be invoked each time a user visible
+	    string is used:</p>
       
       <source>
 I18n i18n = I18nFactory.getI18n(getClass());
@@ -61,18 +61,18 @@ System.out.println(i18n.tr("This text will be translated"));
 
       <source>
 System.out.println(i18n.trn("Copied file.", "Copied files.", 1));
-// -> will print "Copied file."
+// will print "Copied file."
 
 System.out.println(i18n.trn("Copied file.", "Copied files.", 4));
-// -> will print "Copied files."
-      </source>      
+// will print "Copied files."
+</source>      
 
-	  <p>In addition there is a convenience methods that use the Java API
+	  <p>In addition there are convenience methods that use the Java API
 		<tt>MessageFormat.format()</tt> for substitution:</p>
 
 		<source>
 System.out.println(i18n.tr("Folder: {0}", new File("/home/xnap-commons"));
-System.out.println(i18n.trn("{0} file", "{0} files", 2, new Integer(0)));
+System.out.println(i18n.trn("{0} file", "{0} files", 2, new Integer(5)));
 </source>
 
 		<p>And sometimes it is necessary to provide different
@@ -103,7 +103,7 @@ public class SampleClass
 	        localizedString = i18n.tr("Hello, World");
 	}
 }
-      </source>
+</source>
 
       <p><a
 	href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nManager.html">I18nManager</a>
@@ -111,14 +111,14 @@ public class SampleClass
 	the facility to change the locale of all registered I18n objects thereby
 	notifying possible LocaleChangeListeners:</p>
 
-      <source>
+<source>
 public class LocaleChangeAwareClass implements LocaleChangeListener
 {
 	private static I18n i18n = I18nFactory.getI18n(LocaleChangeAwareClass.class);
 
 	String localizedString;
 
-	public LocaleChangeListener()
+	public LocaleChangeAwareClass()
 	{
 	        localizedString = i18n.tr("Hello, World");
 	        I18nManager.getInstance().addWeakLocaleChangeListener(this);
@@ -126,11 +126,12 @@ public class LocaleChangeAwareClass implements LocaleChangeListener
 
 	public void localeChanged(LocaleChangeEvent event)
 	{
-	        // update string
+	        // update strings
 	        localizedString = i18n.tr("Hello, World");
+	        ...
 	}
 }
-      </source>
+</source>
 
     </section>
 	<section name="Creating Resource Bundles">
@@ -161,7 +162,7 @@ public class LocaleChangeAwareClass implements LocaleChangeListener
 		</li>
 	  </ol>
 
-	  <p>Here is simple example of running the xgettext commands:</p>
+	  <p>Here is a simple example of running the gettext commands:</p>
 
 	  <source>
 # extract keys
@@ -179,22 +180,24 @@ msgfmt --java2 -d src/conf -r app.i18n.Messages -l de de.po
 
     </section>
 	<section name="Loading Resource Bundles">
-	  <p>In order to specify the name of the resource bundles you use, you
-	can create a <tt>i18n.properties</tt> file</p> and place it your
+	  <p>In order to specify the name of the resource bundles you want to
+	use, you create an <tt>i18n.properties</tt> file and place it in your
 	application's toplevel package. All subpackages will use this
-	configuration file.
+	configuration file unless they find a different one on the way up in
+	the package hierarchy.</p>
 	  
 	  <p><b>i18n.properties</b> expects the base name of the resources as
 	the value of the key <tt>basename</tt>:</p>
 	  <source>
-basename=app.i18n.Messages
-	  </source>
+basename=app.i18n.Messages</source>
+
+    <p>For more information on how the resource lookup works, please read <a href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nFactory.html#getI18n(java.lang.Class, java.lang.String)">here</a>.</p>
+
 	</section>
 
-    <p>For more information on how the resource lookup works, please read <a href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18nFactory.html#getI18n(java.lang.Class, java.lang.String)>here</a>.</p>
 
 	<section name="Maven Integration">
-	  <p>If Maven is used for building the invocation of gettext can
+	  <p>If Maven is used for building, the invocation of gettext can
 	    be easily integrated into the build process. Follow the
 	    appropriate link below for more information:</p>
 	  

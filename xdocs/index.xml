@@ -9,7 +9,7 @@
       <p>The Gettext Commons project provides Java classes for
       internationalization (i18n) through <a
       href="http://www.gnu.org/software/gettext/">GNU
-      gettext</a></p>
+      gettext</a>.</p>
 
 	  <p>The lightweight Gettext Commons library combines the power of the
 	  Unix-style <a href="http://www.gnu.org/software/gettext/">GNU
@@ -26,7 +26,7 @@
 		<li>Easy extraction of user visible strings</li>
 		<li>Strings are marked as fuzzy when the original text changes
 		  so translators can check if the translations still
-		  matches</li>
+		  match</li>
 		<li>Powerful plural handling</li>
 		<li>Build process integration through Maven</li>
 	  </ul>
