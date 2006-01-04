@@ -6,31 +6,11 @@
   </properties>
   <body>
     <section name="Overview">
-	  <p>The Gettext Commons classes combine the power of the
-	  Unix-style <a href="http://www.gnu.org/software/gettext/">GNU
-	  gettext</a> tools with the widely used Java ResourceBundles. We
-	  find that the usual Java i18n approach of using custom property
-	  keys rather than the original text is cumbersome to use and
-	  makes programs harder to read. All user visible text is replaced
-	  by arbitrary keys complicating lookups of strings in the
-	  source.</p>
-
-	  <p>There are a few more advantages of using gettext:</p>
-
-	  <ul>
-		<li>Easy extraction of user visible strings</li>
-		<li>Strings are marked as fuzzy when the original text changes
-		  so translators can check if the translations still
-		  matches</li>
-		<li>Powerful plural handling</li>
-		<li>Build process integration through Maven</li>
-	  </ul>
 
       <p>This page gives an overview of the Gettext Commons and
       describes how to integrate the library into existing Java
       applications.</p>
 
-	  
 	  <p>Quick Links: <a
 		  href="examples/I18nExample.java">I18nExample.java</a>, <a
 		  href="/gettext-commons/apidocs/index.html">API
@@ -66,10 +46,10 @@
     </section>
 
     <section name="Internationalization">
-      <p>The Gettext Commons provide the class <tt><a
-	    href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18n.html">I18n</a></tt>
-	that has methods that need to be invoked each time a
-	user visible string is used:</p>
+      <p>The Gettext Commons provide the <tt><a
+	    href="http://xnap-commons.sourceforge.net/gettext-commons/apidocs/org/xnap/commons/i18n/I18n.html">I18n</a>
+	    class </tt> that has methods that need to be invoked each time a
+	    user visible string is used:</p>
       
       <source>
 I18n i18n = I18nFactory.getI18n(getClass());
