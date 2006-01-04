@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Package Manager">
+  <title>XNap Commons - Package Manager</title>
+  <body>
+    <links>
+      <item name="XNap Commons"
+      href="http://xnap-commons.sourceforge.net/"/>
+      <item name="Project Page"
+      href="http://sourceforge.net/projects/xnap-commons/"/>
+<!--
+      <item name="Project Stats"
+      href="http://sourceforge.net/project/stats/?group_id=121150&amp;ugn=xnap-commons"/>
+-->
+    </links>
+    <menu name="Overview">
+      <item href="/index.html" name="Home"/>
+      <item name="Download" href="http://sourceforge.net/project/showfiles.php?group_id=121150"/>
+      <item href="/tutorial.html" name="Tutorial"/>
+      <item name="API (JavaDoc)" href="/apidocs/index.html" target="_blank"/>
+    </menu>
+  </body>
+</project>

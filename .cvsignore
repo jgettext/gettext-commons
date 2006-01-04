@@ -2,6 +2,7 @@
 .packaging
 .project
 .settings
+cobertura.ser
 jcoverage.ser
 target
 velocity.log

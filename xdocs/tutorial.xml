@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+
+<document>
+  <properties>
+    <title>Tutorial</title>
+  </properties>
+  <body>
+    <section name="Overview">
+      <p>This page gives an overview of the Gettext Commons and
+      describes how to integrate the library into existing Java
+      applications.</p>
+	</section>
+
+    <section name="Requirements">
+	  <ul>
+		<li>Java 1.3 (or higher)</li>
+	  </ul>
+	</section>
+
+    <section name="Installation">
+	  <subsection name="Windows">
+	  </subsection>
+
+	  <subsection name="*nix">
+		<p>Most Unix systems and Linux distributions ship with gettext
+		packages.</p>
+	  </subsection>
+	</section>
+
+	<section name="Internationalization (I18n)">
+	  <p>The XNap Commons i18n classes combine the power of the
+	  Unix-style gettext tools with the widely used Java property
+	  files. We find that usual Java i18n approach of using custom
+	  property keys rather than the original text is cumbersome to use
+	  and makes programs harder to read since all displayed text is
+	  replaced by arbitrary keys.</p>
+
+	  <p>The XNap Commons provide the class <tt><a
+		href="http://xnap-commons.sourceforge.net/apidocs/org/xnap/commons/i18n/I18n.html">org.xnap.i18n.I18n</a></tt>
+		that has static methods that need to be invoked each time a
+		user visible string is used:</p>
+			
+	  <source>
+System.out.println(I18n.tr("This text will be translated"));</source>
+
+	  <p>In addition there is a method that uses the Java API
+		<tt>MessageFormat.format()</tt> for substitution:</p>
+
+		<source>
+System.out.println(I18n.tr("Four: {0}", 4));</source>
+
+		<p>And sometimes it is desirable to provide different
+		translations of the same word as some words may have multiple
+		meanings in the native language the program is written but
+		not in other languages:</p>
+
+		<source>
+System.out.println(I18n.trc("chat (verb)", "chat"));
+System.out.println(I18n.trc("chat (noun)", "chat"));</source>
+
+	  <subsection name="Creating Bundles">
+		<p>In order to create the localized version the gettext tools
+		are used. The xgettext tool scans the source code for calls to
+		<tt>I18n.tr()</tt> and <tt>I18n.trc()</tt> and creates a pot
+		file that contains all strings in the native language. This
+		file is translated to other languages with convenient tools
+		like <a href="http://www.poedit.org/">poedit</a>, KBabel or
+		Emacs. Finally <tt>msgcat</tt> is used to generate Java
+		property files that can be used with <tt>ResourceBundle</tt>
+		objects:</p>
+
+		<source>
+# collect all keys
+xgettext --from-code=UTF-8 -ktrc -ktr -kmarktr src/*.java -o po/keys.pot
+
+# merge keys into localized po file
+msgmerge --backup=numbered -U po/de.po po/keys.pot
+
+# translate file
+kbabel po/de.po
+
+# create property file
+msgcat -p po/de.po -o src/i18n/myapp_de.properties</source>
+
+		<p>Before making any call to <tt>I18n.tr()</tt> it is
+		necessary to add a resource bundle that contains translations
+		for the current locale to the <tt>I18n</tt> class. The
+		following code snippet assumes that the property files are
+		located in the <tt>i18n</tt> directory and prefixed by the
+		application name <tt>myapp</tt> (see example above):</p>
+
+		<source>
+ResourceBundle resources = ResourceBundle.getBundle("i18n.myapp");
+I18n.addResources(resources);</source>
+
+		<p>More Information: <a
+		href="examples/I18nExample.java">I18nExample.java</a>,
+		<a
+		href="http://xnap-commons.sourceforge.net/apidocs/org/xnap/commons/i18n/package-summary.html">API
+		Documentation</a></p>
+
+	  </subsection>
+    </section>
+
+	<section name="Maven Integration">
+	  <ul>
+		<li><a
+				href="http://xnap-commons.sourceforge.net/m1/maven-gettext-plugin/index.html">Maven	1.x Gettext Plugin</a></li>
+		<li><a
+				href="http://xnap-commons.sourceforge.net/m2/maven-gettext-plugin/index.html">Maven
+				2.x Gettext Plugin</a></li>
+	  </ul>
+	</section>
+
+  </body>
+</document>
+
+<!--
+Local Variables:
+sgml-indent-data: t
+End:
+-->

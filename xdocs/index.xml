@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<document>
+  <properties>
+    <title>Gettext Commons</title>
+  </properties>
+  <body>
+    <section name="Introduction">
+      <p>The Gettext Commons project provides Java classes for
+      internationalization (i18n) through <a
+      href="http://www.gnu.org/software/gettext/">GNU
+      gettext</a>. Have a look at the <a
+      href="tutorial.html">tutorial</a> page to see how you can
+      enhance your Java application with the Gettext Commons.</p>
+    </section>
+
+    <section name="Download">
+	  <p>Stable release are available from our <a
+	  href="http://sourceforge.net/project/showfiles.php?group_id=121150&amp;package_id=132164">download
+	  page</a>. If you are using <a href="http://maven.apache.org"
+	  target="_blank">Maven</a> add the following dependencies to your
+	  project.xml:</p>
+
+<source>
+&lt;dependency&gt;
+  &lt;id&gt;gettext-commons&lt;/id&gt;
+  &lt;version&gt;0.9&lt;/version&gt;
+  &lt;url&gt;http://xnap-commons.sf.net/gettext-commons/&lt;/url&gt;
+&lt;/dependency&gt;
+</source>
+
+	  <p>And add the XNap Commons repository to your
+	  project.properties:</p>
+
+<source>
+maven.repo.remote = http://www.ibiblio.org/maven,http://xnap-commons.sf.net/repository
+</source>
+
+	</section>
+
+    <section name="Getting Involved">
+	  <p>The Gettext Commons project is part of the XNap Commons
+	  project. Please see <a
+	  href="http://xnap-commons.sourceforge.net/#Getting_Involved">this
+	  page</a> about how to help.</p>
+	</section>
+  </body>
+</document>
+
