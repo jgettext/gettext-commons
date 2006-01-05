@@ -31,16 +31,10 @@ import java.util.ResourceBundle;
 /**
  * Provides methods for internationalization.
  * <p>
- * All text messages wrapped with one of the methods {@link #tr(String)},
- * {@link #trc(String, String)}, {@link #marktr(String)},
- * {@link #trn(String, String, long)} etc. can be extracted into a pot file
- * using <code>xgettext</code> from <a
- * href="http://www.gnu.org/software/gettext/">GNU gettext</a>:
- * <p>
- * 
- * <pre>
- *   xgettext -ktrc -ktr -kmarktr -ktrn:1,2 -o keys.pot *.java 
- * </pre>
+*  To learn how message strings wrapped in one of the <code>tr*()</code> methods
+*  can be extracted and localized, see this 
+*  <a href=" http://xnap-commons.sourceforge.net/gettext-commons/tutorial.html">
+*  tutorial</a>.
  * 
  * @author Steffen Pingel
  * @author Felix Berger

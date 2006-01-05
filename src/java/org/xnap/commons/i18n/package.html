@@ -5,66 +5,9 @@
 <body>
 <p>Provides classes for internationalization (i18n).</p>
 
-<p>To make use of internationalization a programmer should follow these basic
-steps:</p>
-
-<ul>
-
-  <li>
-  <p>Wrap all text messages intended for translation with one of the tr*
-  methods provided in the class <a href="I18n.html" >I18n</a>. Make sure the
-  arguments to tr* only contain pure text messages and no String variables or
-  the string concatenation operator +.</p>
-  </li>
-
-  <li>
-  <p>Add a rule to your build environment in order to extract the text
-  messages using <code>xgettext</code>. For Makefiles this could look like
-  this:</p>
-
-  <pre>
-extract-keys:
-	xgettext --from-code=UTF-8 -ktrc -ktr -kmarktr \
-	`find . -name "*.java"` -o po/keys.pot
-  </pre>
-  </li>
-
-  <li>
-  <p>Give the generated <code>keys.pot</code> to your translators and store
-  the translated files as <code>[country code].po</code> in the
-  <code>po</code> directory alongside the
-  <code>keys.pot</code> file.</p>
-  </li>
-
-  <li>
-  <p>If there are already translated po files, use xgettext's
-  <code>msgmerge</code> facility
-  to update the translated files with the new keys and give those to the
-  tranlators. A sample Makefile rule for merging:</p>
-
-  <pre>
-merge-keys: extract-keys
-	for i in `find po -type f -name "*.po"`; do \
-	  msgmerge --backup=numbered -U $$i po/keys.pot; \
-	done
-</pre>
-  
-  </li>  
-
-  <li>
-  <p>Java properties files can be generated using a rule like:</p>
-
-  <pre>
-i18n-dist: 
-	for i in `find po -type f -name "*.po"`; do \
-	  f=src/resources/programname_`basename $$i | sed -e 's/po/properties/'`; \
-	  msgcat -p $$i -o $$f || true; \
-	done
-</pre>
-  
-  </li>
-  
-</ul>
+<p>To learn how to make use of the Gettext Commons internationalization,
+please have a look at this <a href="
+http://xnap-commons.sourceforge.net/gettext-commons/tutorial.html">tutorial</a>.</p>
 
 </body>
 </html>
