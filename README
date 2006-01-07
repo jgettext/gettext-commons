@@ -1,0 +1,70 @@
+INTRODUCTION
+
+ The Gettext Commons project provides Java classes for
+ internationalization (i18n) through GNU gettext and Java
+ ResourceBundles. This makes it possible to use the original text
+ instead of arbitrary property keys, which is less cumbersome and
+ makes programs easier to read. Gettext supports the easy extraction
+ of user visible strings, marks strings as fuzzy when the original
+ text changes to allow translators to check translations, powerful
+ plural handling, and build process integration through Maven.
+
+ A tutorial that describes how to use the Gettext Commons is available
+ at http://xnap-commons.sourceforge.net/gettext-commons/tutorial.html .
+
+
+REQUIREMENTS
+
+ * Java 1.3 (or higher)
+
+ If you use Maven 1.x to handle your dependencies, add the following
+ entries to your project.xml (replace 0.9.x with the latest release):
+
+  <dependency>
+    <groupId>gettext-commons</groupId>
+	<artifactId>gettext-commons</artifactId>
+    <version>0.9</version>
+    <url>http://xnap-commons.sf.net/gettext-commons/</url>
+  </dependency>
+ 
+ And add the XNap Commons repository to your project.properties:
+
+  maven.repo.remote = http://www.ibiblio.org/maven,http://xnap-commons.sf.net/repository
+
+
+COPYRIGHT
+
+ XNap Commons is distributed under the terms of the GNU Lesser General
+ Public License, see LICENSE.txt for details. The icons directory
+ contains images from the KDE project, see LICENSE.icons for terms of
+ use. 
+
+ Copyright (C) 2005  Felix Berger
+ Copyright (C) 2005  Steffen Pingel
+ Copyright (C) 2005  Tammo van Lessen
+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+
+
+DEVELOPMENT
+
+ The Gettext Commons can be built with Maven 1.x
+ (http://maven.apache.org/maven-1.x/):
+
+ * Create a jar file     : maven jar
+ * Generate documentation: maven site:generate
+ * Clean generated files : maven clean
+
+ See Maven documentation for more information.
+
+KNOWN BUGS
+
+ None.
