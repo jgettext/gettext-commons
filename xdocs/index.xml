@@ -11,14 +11,13 @@
       href="http://www.gnu.org/software/gettext/">GNU
       gettext</a>.</p>
 
-	  <p>The lightweight Gettext Commons library combines the power of the
-	  Unix-style <a href="http://www.gnu.org/software/gettext/">GNU
-	  gettext</a> tools with the widely used Java ResourceBundles. We
-	  find that the usual Java i18n approach of using custom property
-	  keys rather than the original text is cumbersome to use and
-	  makes programs harder to read. All user visible text is replaced
-	  by arbitrary keys complicating lookups of strings in the
-	  source.</p>
+	  <p>The lightweight Gettext Commons library combines the power of
+	  the unix-style gettext tools with the widely used Java
+	  ResourceBundles. We find that the usual Java localization
+	  approach of using custom property keys rather than the original
+	  text is cumbersome to use and makes programs harder to read. All
+	  user visible text is replaced by arbitrary keys complicating
+	  lookups of strings in the source.</p>
 
 	  <p>There are a few more advantages of using gettext:</p>
 
@@ -34,13 +33,15 @@
       <p>Have a look at the <a href="tutorial.html">tutorial</a> page to see
       how you can enhance your Java application with the Gettext Commons.</p>
 
+	  <p><a href="http://www.java.net"><img src="javanet_button_90.gif"
+		  alt="java.net" border="0"></img></a></p>
     </section>
 
     <section name="Download">
 	  <p>Stable releases are available from our <a
 	  href="http://sourceforge.net/project/showfiles.php?group_id=121150&amp;package_id=132164">download
-	  page</a>. If you are using <a href="http://maven.apache.org"
-	  target="_blank">Maven</a> add the following dependencies to your
+	  page</a>. If you are using <a href="http://maven.apache.org/maven-1.x/"
+	  target="_blank">Maven 1.x</a> add the following dependencies to your
 	  project.xml:</p>
 
 <source>
