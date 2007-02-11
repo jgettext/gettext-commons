@@ -27,6 +27,14 @@
 		<li>Build process integration through Maven</li>
 	  </ul>
 
+	  <p>Here is an example that demonstrates how easy it is to use
+	  the Gettext Commons:</p>
+
+      <source>
+I18n i18n = I18nFactory.getI18n(getClass());
+System.out.println(i18n.tr("This text will be translated"));
+</source>
+
       <p>Have a look at the <a href="tutorial.html">tutorial</a> page to see
       how you can enhance your Java application with the Gettext Commons.</p>
 
@@ -35,28 +43,9 @@
     </section>
 
     <section name="Download">
-	  <p>Stable releases are available from our <a
+	  <p>Stable releases are available from the <a
 	  href="http://sourceforge.net/project/showfiles.php?group_id=121150&amp;package_id=132164">download
-	  page</a>. If you are using <a href="http://maven.apache.org/maven-1.x/"
-	  target="_blank">Maven 1.x</a> add the following dependencies to your
-	  project.xml:</p>
-
-<source>
-&lt;dependency&gt;
-  &lt;groupId&gt;gettext-commons&lt;/groupId&gt;
-  &lt;artifactId&gt;gettext-commons&lt;/artifactId&gt;
-  &lt;version&gt;0.9&lt;/version&gt;
-  &lt;url&gt;http://xnap-commons.sf.net/gettext-commons/&lt;/url&gt;
-&lt;/dependency&gt;
-</source>
-
-	  <p>And add the XNap Commons repository to your
-	  project.properties:</p>
-
-<source>
-maven.repo.remote = http://www.ibiblio.org/maven,http://xnap-commons.sf.net/repository
-</source>
-
+	  page</a> and the <a href="maven.html">Maven repository</a>.</p>
 	</section>
 
     <section name="Getting Involved">

@@ -16,6 +16,7 @@
     <menu name="Overview">
       <item href="/index.html" name="Home"/>
       <item name="Download" href="http://sourceforge.net/project/showfiles.php?group_id=121150"/>
+      <item href="/maven.html" name="Maven Repository"/>
       <item href="/tutorial.html" name="Tutorial"/>
       <item name="API (JavaDoc)" href="/apidocs/index.html" target="_blank"/>
     </menu>
