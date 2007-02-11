@@ -18,9 +18,9 @@
 
   <siteDirectory>/home/groups/x/xn/xnap-commons/htdocs/gettext-commons</siteDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/xnap-commons:gettext-commons</connection>
-    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sf.net:/cvsroot/xnap-commons:gettext-commons</developerConnection>
-    <url>http://cvs.sourceforge.net/cgi-bin/viewcvs.cgi/xnap-commons/gettext-commons/</url>
+    <connection>scm:cvs:pserver:anonymous@xnap-commons.cvs.sourceforge.net:/cvsroot/xnap-commons:gettext-commons</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@xnap-commons.cvs.sourceforge.net:/cvsroot/xnap-commons:gettext-commons</developerConnection>
+    <url>http://xnap-commons.cvs.sourceforge.net/xnap-commons/gettext-commons/</url>
   </repository>
 
   <developers>
