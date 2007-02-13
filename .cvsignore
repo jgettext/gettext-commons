@@ -6,3 +6,4 @@ cobertura.ser
 jcoverage.ser
 target
 velocity.log
+bin
