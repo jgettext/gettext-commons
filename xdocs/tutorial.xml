@@ -175,7 +175,7 @@ msgmerge -U po/de.po po/keys.pot
 poedit po/de.po
 
 # create German ResourceBundle class file in app.i18n package
-msgfmt --java2 -d src/conf -r app.i18n.Messages -l de de.po
+msgfmt --java2 -d src/conf -r app.i18n.Messages -l de po/de.po
 </source>
 
     </section>
