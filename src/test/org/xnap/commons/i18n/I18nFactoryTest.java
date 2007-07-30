@@ -34,7 +34,7 @@ public class I18nFactoryTest extends TestCase
 		for (int i = 0; i < LOCALES.length; i++) {
 			Locale.setDefault(LOCALES[i]);
 			I18n i18n = I18nFactory.findByBaseName("TestMessages", packageName, 
-					MockResourceBundle.class.getClassLoader());
+					Locale.getDefault(), MockResourceBundle.class.getClassLoader());
 			assertEquals(LOCALES[i], i18n.getResources().getLocale());
 			assertEquals(VALUES[i], i18n.getResources().getString("value"));
 			assertEquals(VALUES[i], i18n.tr("value"));
@@ -42,7 +42,7 @@ public class I18nFactoryTest extends TestCase
 		
 		// same for mock up
 		I18n i18n = I18nFactory.findByBaseName("MockResourceBundle", 
-				packageName, getClass().getClassLoader());
+				packageName, Locale.getDefault(), getClass().getClassLoader());
 		assertEquals(MockResourceBundle.class, i18n.getResources().getClass());
 		assertEquals("value", i18n.getResources().getString("value"));
 		assertEquals("value", i18n.tr("value"));
@@ -52,7 +52,7 @@ public class I18nFactoryTest extends TestCase
 	{
 		Locale.setDefault(Locale.GERMAN);
 		I18n i18n = I18nFactory.readFromPropertiesFile(packageName, 
-				getClass().getClassLoader());
+				Locale.getDefault(), getClass().getClassLoader());
 		assertNotNull(i18n);
 		assertEquals("Wert", i18n.getResources().getString("value"));
 		assertEquals("Wert", i18n.tr("value"));
