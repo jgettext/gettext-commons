@@ -59,7 +59,7 @@ public class I18nExample
 			/*
 			 * A convenience wrapper for MessageFormat.format(String, Object[]).
 			 */
-			print(i18n.tr("Four: {0}", 4));
+			print(i18n.tr("Four: {0}", new Integer(4)));
 		
 			/*
 			 * This method disambiguates a word which has to be translated
@@ -75,9 +75,9 @@ public class I18nExample
 			 * I18n.trn handles plurals. The third parameter contains the number
 			 * of objects to decide which plural form to use.
 			 */
-			print(i18n.trn("{0} file is open", "{0} files are open", 1, 1));
+			print(i18n.trn("{0} file is open", "{0} files are open", 1, new Integer(1)));
 			
-			print(i18n.trn("{0} file is open", "{0} files are open", 2, 2));
+			print(i18n.trn("{0} file is open", "{0} files are open", 2, new Integer(2)));
 		}
 	}
 	
