@@ -1,21 +1,40 @@
 <project>
 
-  <postGoal name="test:test-resources">
-	<attainGoal name="gettext:dist"/>
-  </postGoal>
+	<postGoal name="test:test-resources">
+		<attainGoal name="gettext:dist" />
+	</postGoal>
 
-  <preGoal name="xdoc:transform">
-	<copy toDir="target/docs/examples" overwrite="true">
-	  <fileset dir="src/examples">
-		<includes name="**/*.java"/>
-	  </fileset>
-	</copy>
-  </preGoal>
-  
-  <postGoal name="dist:prepare-src-filesystem">
-	<copy toDir="${maven.dist.src.assembly.dir}/src/examples" overwrite="true">
-	  <fileset dir="src/examples"/>
-	</copy>
-  </postGoal>
-  
+	<preGoal name="xdoc:transform">
+		<copy toDir="target/docs/examples" overwrite="true">
+			<fileset dir="src/examples">
+				<includes name="**/*.java" />
+			</fileset>
+		</copy>
+	</preGoal>
+
+	<postGoal name="dist:prepare-src-filesystem">
+		<copy toDir="${maven.dist.src.assembly.dir}/src/examples"
+			overwrite="true">
+			<fileset dir="src/examples" />
+		</copy>
+		<copy toDir="${maven.dist.src.assembly.dir}" overwrite="true">
+			<fileset dir=".">
+				<include name="ChangeLog" />
+				<include name="NOTICE.txt" />
+				<include name="README" />
+			</fileset>
+		</copy>
+		<copy toDir="${maven.dist.src.assembly.dir}/po"
+			overwrite="true">
+			<fileset dir="po">
+				<include name="*.po" />
+				<include name="*.pot" />
+			</fileset>
+		</copy>
+		<copy toDir="${maven.dist.src.assembly.dir}/xdocs"
+			overwrite="true">
+			<fileset dir="xdocs" />
+		</copy>
+	</postGoal>
+
 </project>
