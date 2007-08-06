@@ -1,3 +1,15 @@
+2007-08-06  Steffen Pingel  <steffen.pingel@googlemail.com>
+
+	* src/java/org/xnap/commons/i18n/I18nFactory.java: Added private
+	constructor.
+
+	* src/java/org/xnap/commons/i18n/I18nFactory.java: Added getI18n() 
+	method that accepts configuration flags. If I18nFactory.FALLBACK is
+	passed the lookup will fall-back to a default resource bundle
+	instead of throwing an exception (#3). Lookup of the basename in 
+	properties can now be omitted when I18nFactory.READ_PROPERTIES
+	is not passed as a configuration flag.
+
 2006-01-05  Steffen Pingel  <squig@users.sourceforge.net>
 
 	* Gettext Commons 0.9 released

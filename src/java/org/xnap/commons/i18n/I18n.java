@@ -23,7 +23,6 @@ package org.xnap.commons.i18n;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.text.MessageFormat;
-import java.util.Enumeration;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -433,45 +432,6 @@ public class I18n {
 		return sourceCodeLocale.equals(getResources().getLocale()) 
 			? text
 			: tr(comment);
-	}
-
-	/**
-	 * A <code>ResourceBundle</code> that returns the key as a value.
-	 *
-	 * FIXME needs to implement proper plurar handling
-	 * FIXME the bundle needs to have a valid locale for proper sourceCodeLocale handling
-	 */
-	private static class EmptyResourceBundle extends ResourceBundle
-	{
-		/**
-		 * Returns the key as value.
-		 */
-		protected Object handleGetObject(String key) 
-		{
-			return key;
-		}
-
-		public Enumeration getKeys() 
-		{
-			return new EmptyStringEnumeration();
-		}
-		
-		private static class EmptyStringEnumeration implements Enumeration
-		{
-
-			public boolean hasMoreElements() 
-			{
-				return false;
-			}
-
-			public Object nextElement() 
-			{
-				throw new IllegalStateException("nextElement must not be " +
-						"called on empty enumeration");
-			}
-			
-		}
-		
 	}
 	
 }

@@ -22,6 +22,8 @@ public class I18nFactoryTest extends TestCase
 		
 		savedDefault = Locale.getDefault();
 		Locale.setDefault(Locale.GERMAN);
+		
+		I18nFactory.clearCache();
 	}
 	
 	protected void tearDown() throws Exception 
@@ -89,6 +91,12 @@ public class I18nFactoryTest extends TestCase
 	{
 		assertFalse(I18nFactory.isInDefaultPackage(I18nFactory.class));
 		assertFalse(I18nFactory.isInDefaultPackage(List.class));
+	}
+
+	public void testGetI18nFallback()
+	{
+	    I18n i18n = I18nFactory.getI18n(HasNoOwnResources.class, "NonExistant", Locale.getDefault(), I18nFactory.FALLBACK);
+	    assertTrue(i18n.getResources() instanceof EmptyResourceBundle);
 	}
 
 }

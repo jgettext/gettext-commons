@@ -6,7 +6,7 @@
 	<artifactId>gettext-commons</artifactId>
 
 	<name>Gettext Commons</name>
-	<currentVersion>0.9</currentVersion>
+	<currentVersion>0.9.1</currentVersion>
 	<package>org.xnap.commons</package>
 
 	<description>

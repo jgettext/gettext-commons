@@ -47,15 +47,40 @@ public class I18nFactory {
 
 	private static HashMap i18nByPackage = new HashMap();
 	
+	/** 
+	 * Use the default configuration.
+	 */
+	public static final int DEFAULT = 0;
+	
+    /**
+     * Fall back to a default resource bundle that returns the passed text if no
+     * resource bundle can be located.
+     */
+	public static final int FALLBACK = 1 << 0;
+
+    /**
+     * Look for files named {@link #PROPS_FILENAME} to determine the basename.
+     * 
+     * @since 0.9.1
+     */
+    public static final int READ_PROPERTIES = 2 << 0;
+
 	/**
 	 * Default name for Message bundles, is "i18n.Messages".
+	 * 
+	 * @since 0.9.1
 	 */
 	public static final String DEFAULT_BASE_NAME = "i18n.Messages";
+	
 	/**
-	 * Filename of the poperties file that contains the i18n properties,
+	 * Filename of the properties file that contains the i18n properties,
 	 * is "i18n.properties".
 	 */
 	public static final String PROPS_FILENAME = "i18n.properties";
+	
+	private I18nFactory() {
+	    
+	}
 	
 	/**
 	 * Clears the cache of i18n objects. Used by the test classes.
@@ -138,6 +163,14 @@ public class I18nFactory {
 		return getI18n(clazz, baseName, Locale.getDefault());
 	}
 	
+    /**
+     * Calls {@link #getI18n(Class, String, Locale) getI18n(clazz, baseName, Locale.getDefault(), false)}. 
+     */
+	public static I18n getI18n(Class clazz, String baseName, Locale locale)
+    {
+	    return getI18n(clazz, baseName, Locale.getDefault(), READ_PROPERTIES);
+    }
+	
 	/**
 	 * Returns the I18n instance responsible for translating messages in
 	 * the package specified by <code>clazz</code>.
@@ -157,56 +190,62 @@ public class I18nFactory {
 	 * @param clazz the package hierarchy of the clazz and its class loader
 	 * are used for resolving and loading the resource bundle
 	 * @param baseName the name of the underlying resource bundle
+	 * @param locale the locale of the underlying resource bundle
+	 * @param flags a combination of these configuration flags: {@link #FALLBACK}
 	 * @return created or cached <code>I18n</code> instance 
 	 * @throws MissingResourceException if no resource bundle was found
+	 * @since 0.9.1
 	 */
-	public static I18n getI18n(Class clazz, String baseName, Locale locale)
+	public static I18n getI18n(Class clazz, String baseName, Locale locale, int flags)
 	{
 		if (isInDefaultPackage(clazz)) {
-			I18n i18n = findI18nInDefaultPackage(baseName, locale,
-												 clazz.getClassLoader());
+			I18n i18n = findI18nInDefaultPackage(baseName, locale, clazz.getClassLoader());
 			if (i18n != null) {
 				registerI18nForDefaultPackage(i18n);
 				return i18n;
 			}
-			else {
-				throw new MissingResourceException("resource bundle not found",
-						clazz.getClass().getName(), baseName);
-			}
-		}
+		} else {
+		    // look for cached versions and property files
+		    String path = clazz.getName();
+		    for (int index = path.lastIndexOf('.'); index != -1; 
+		    index = path.lastIndexOf('.')) {
+		        path = path.substring(0, index);
+		        I18n i18n = (I18n)i18nByPackage.get(path);
+		        if (i18n != null) {
+		            registerI18n(i18n, path, clazz);
+		            return i18n;
+		        }
 
-		// look for cached versions and property files
-		String path = clazz.getName();
-		for (int index = path.lastIndexOf('.'); index != -1; 
-				index = path.lastIndexOf('.')) {
-			path = path.substring(0, index);
-			I18n i18n = (I18n)i18nByPackage.get(path);
-			if (i18n != null) {
-				registerI18n(i18n, path, clazz);
-				return i18n;
-			}
-			
-			i18n = readFromPropertiesFile(path, locale, clazz.getClassLoader());
-			if (i18n != null) {
-				registerI18n(i18n, path, clazz);
-				return i18n;
-			}
+		        if ((flags & READ_PROPERTIES) != 0) {
+		            i18n = readFromPropertiesFile(path, locale, clazz.getClassLoader());
+		            if (i18n != null) {
+		                registerI18n(i18n, path, clazz);
+		                return i18n;
+		            }
+		        }
+		    }
+
+		    // look for bundle with baseName
+		    path = clazz.getName();
+		    for (int index = path.lastIndexOf('.'); index != -1; 
+		    index = path.lastIndexOf('.')) {
+		        path = path.substring(0, index);
+		        I18n i18n = findByBaseName(baseName, path, locale, clazz.getClassLoader());
+		        if (i18n != null) {
+		            registerI18n(i18n, path, clazz);
+		            return i18n;
+		        }
+		    }
 		}
 		
-		// look for bundle with baseName
-		path = clazz.getName();
-		for (int index = path.lastIndexOf('.'); index != -1; 
-				index = path.lastIndexOf('.')) {
-			path = path.substring(0, index);
-			I18n i18n = findByBaseName(baseName, path, locale, clazz.getClassLoader());
-			if (i18n != null) {
-				registerI18n(i18n, path, clazz);
-				return i18n;
-			}
+		if ((flags & FALLBACK) != 0) {
+		    I18n i18n = new I18n(new EmptyResourceBundle());
+		    registerI18n(i18n, "", clazz);
+            return i18n;
 		}
-		
+		 
 		throw new MissingResourceException("resource bundle not found",
-				clazz.getClass().getName(), baseName);
+		            clazz.getClass().getName(), baseName);
 	}
 	
 	/**
