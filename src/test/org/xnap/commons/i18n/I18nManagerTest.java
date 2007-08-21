@@ -10,22 +10,21 @@ public class I18nManagerTest extends TestCase
 	
 	protected void setUp() throws Exception 
 	{
+		I18nFactory.clearCache();
+		
 		savedDefault = Locale.getDefault();
-		Locale.setDefault(Locale.GERMAN);
-
 		Locale.setDefault(Locale.GERMAN);
 	}
 	
 	protected void tearDown() throws Exception 
 	{
-		I18nFactory.clearCache();
-		
 		Locale.setDefault(savedDefault);
 	}
 	
 	public void testSetLocale()
 	{
 		I18n i18n = I18nFactory.getI18n(MockResourceBundle.class);
+		assertEquals(Locale.GERMAN, i18n.getResources().getLocale());
 		I18nManager.getInstance().setDefaultLocale(Locale.FRENCH);
 		assertEquals(Locale.FRENCH, i18n.getResources().getLocale());
 		I18nManager.getInstance().setDefaultLocale(Locale.GERMAN);

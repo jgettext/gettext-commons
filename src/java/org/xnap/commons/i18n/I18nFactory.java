@@ -175,25 +175,29 @@ public class I18nFactory {
 	
 		// look for cached versions and property files
 		path = getPackageName(clazz);
-		for (int index = path.lastIndexOf('.'); i18n == null && index != -1; 
-		index = path.lastIndexOf('.')) {
-			path = path.substring(0, index);
+		int index;
+		do {
+			index = path.lastIndexOf('.');
+			path = (index != -1) ? path.substring(0, index) : "";
 
 			i18n = i18nCache.get(path, locale);
 
 			if (i18n == null && ((flags & READ_PROPERTIES) != 0)) {
 				i18n = readFromPropertiesFile(path, locale, clazz.getClassLoader(), flags);
 			}
-		}
+		} while (i18n == null && index != -1); 
+
 
 		// look for bundle with baseName
-		path = getPackageName(clazz); 
-		for (int index = path.lastIndexOf('.'); i18n == null && index != -1; 
-		index = path.lastIndexOf('.')) {
-			path = path.substring(0, index);
-			i18n = findByBaseName(baseName, path, locale, clazz.getClassLoader(), flags);
-		}
+		if (i18n == null) {
+			path = getPackageName(clazz); 
+			do {
+				index = path.lastIndexOf('.');
+				path = (index != -1) ? path.substring(0, index) : "";
 
+				i18n = findByBaseName(baseName, path, locale, clazz.getClassLoader(), flags);
+			} while (i18n == null && index != -1);
+		}
 		
 		if (i18n == null && (flags & FALLBACK) != 0) {
 			path = "";
@@ -213,7 +217,7 @@ public class I18nFactory {
 	
 	private static String getPackageName(Class clazz)
 	{
-		return isInDefaultPackage(clazz) ? "." : clazz.getName();
+		return isInDefaultPackage(clazz) ? "" : clazz.getName();
 	}
 
 	/**

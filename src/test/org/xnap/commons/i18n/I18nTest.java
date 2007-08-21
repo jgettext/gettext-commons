@@ -16,6 +16,8 @@
  */
 package org.xnap.commons.i18n;
 import java.util.Locale;
+import java.util.MissingResourceException;
+
 import junit.framework.TestCase;
 import org.xnap.commons.i18n.testpackage.MockResourceBundle;
 
@@ -32,9 +34,11 @@ public class I18nTest extends TestCase {
 	
 	protected void setUp() throws Exception 
 	{
-		// WARNING: i18n instances are cached in the factory, therefore test 
-		// cases may not alter their state
-		i18nDE = new I18n(BASENAME, Locale.GERMAN, getClass().getClassLoader());
+		try {
+			i18nDE = new I18n(BASENAME, Locale.GERMAN, getClass().getClassLoader());
+		} catch (MissingResourceException e) {
+			throw new RuntimeException("Please make sure you run mvn org.xnap.commons:maven-gettext-plugin:dist before executing tests");
+		}
 		i18nEN = new I18n(BASENAME, Locale.ENGLISH, getClass().getClassLoader());
 	}
 	
@@ -102,31 +106,21 @@ public class I18nTest extends TestCase {
 		}
 		catch (NullPointerException npe) {
 		}
-		try {
-			I18n i18n = I18nFactory.getI18n(MockResourceBundle.class);
-			i18n.setResources(null);
-			fail("NullPointerException expected");
-		}
-		catch (NullPointerException npe) {
-		}
-		I18n i18n = I18nFactory.getI18n(MockResourceBundle.class);
 		String baseName = MockResourceBundle.class.getName();
-		i18n.setResources(baseName, Locale.GERMAN, MockResourceBundle.class.getClassLoader());
-		assertEquals(MockResourceBundle.class, i18n.getResources().getClass());
 		try {
-			i18n.setResources(null, Locale.GERMAN, MockResourceBundle.class.getClassLoader());
+			i18nDE.setResources(null, Locale.GERMAN, MockResourceBundle.class.getClassLoader());
 			fail("NullPointerException expected");
 		}
 		catch (NullPointerException npe) {
 		}
 		try {
-			i18n.setResources(baseName, null, MockResourceBundle.class.getClassLoader());
+			i18nDE.setResources(baseName, null, MockResourceBundle.class.getClassLoader());
 			fail("NullPointerException expected");
 		}
 		catch (NullPointerException npe) {
 		}
 		try {
-			i18n.setResources(baseName, Locale.GERMAN, null);
+			i18nDE.setResources(baseName, Locale.GERMAN, null);
 			fail("NullPointerException expected");
 		}
 		catch (NullPointerException npe) {

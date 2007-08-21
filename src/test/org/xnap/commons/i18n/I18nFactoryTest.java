@@ -36,7 +36,7 @@ public class I18nFactoryTest extends TestCase
 		for (int i = 0; i < LOCALES.length; i++) {
 			Locale.setDefault(LOCALES[i]);
 			I18n i18n = I18nFactory.findByBaseName("TestMessages", packageName, 
-					Locale.getDefault(), MockResourceBundle.class.getClassLoader());
+					Locale.getDefault(), MockResourceBundle.class.getClassLoader(), 0);
 			assertEquals(LOCALES[i], i18n.getResources().getLocale());
 			assertEquals(VALUES[i], i18n.getResources().getString("value"));
 			assertEquals(VALUES[i], i18n.tr("value"));
@@ -44,7 +44,7 @@ public class I18nFactoryTest extends TestCase
 		
 		// same for mock up
 		I18n i18n = I18nFactory.findByBaseName("MockResourceBundle", 
-				packageName, Locale.getDefault(), getClass().getClassLoader());
+				packageName, Locale.getDefault(), getClass().getClassLoader(), 0);
 		assertEquals(MockResourceBundle.class, i18n.getResources().getClass());
 		assertEquals("value", i18n.getResources().getString("value"));
 		assertEquals("value", i18n.tr("value"));
@@ -54,7 +54,7 @@ public class I18nFactoryTest extends TestCase
 	{
 		Locale.setDefault(Locale.GERMAN);
 		I18n i18n = I18nFactory.readFromPropertiesFile(packageName, 
-				Locale.getDefault(), getClass().getClassLoader());
+				Locale.getDefault(), getClass().getClassLoader(), 0);
 		assertNotNull(i18n);
 		assertEquals("Wert", i18n.getResources().getString("value"));
 		assertEquals("Wert", i18n.tr("value"));
@@ -68,7 +68,13 @@ public class I18nFactoryTest extends TestCase
 		// base name is ignored, since we found properties
 		assertNotSame(MockResourceBundle.class, i18n.getResources().getClass());
 	}
-	
+
+	public void testGetI18nFromDefaultPackage()
+	{
+		I18n i18n = I18nFactory.getI18n(MockResourceBundle.class, "DefaultMessages", Locale.ENGLISH, I18nFactory.DEFAULT);
+		assertEquals("DefaultBundle", i18n.tr("source"));
+	}
+
 	public void testOwnResources()
 	{
 		I18n i18n = I18nFactory.getI18n(HasItsOwnResources.class);
@@ -97,6 +103,21 @@ public class I18nFactoryTest extends TestCase
 	{
 	    I18n i18n = I18nFactory.getI18n(HasNoOwnResources.class, "NonExistant", Locale.getDefault(), I18nFactory.FALLBACK);
 	    assertTrue(i18n.getResources() instanceof EmptyResourceBundle);
+	}
+
+	public void testSetResources()
+	{
+		try {
+			I18n i18n = I18nFactory.getI18n(MockResourceBundle.class);
+			i18n.setResources(null);
+			fail("NullPointerException expected");
+		}
+		catch (NullPointerException npe) {
+		}
+		I18n i18n = I18nFactory.getI18n(MockResourceBundle.class);
+		String baseName = MockResourceBundle.class.getName();
+		i18n.setResources(baseName, Locale.GERMAN, MockResourceBundle.class.getClassLoader());
+		assertEquals(MockResourceBundle.class, i18n.getResources().getClass());
 	}
 
 }

@@ -1,3 +1,16 @@
+2007-08-21 Steffen Pingel <steffen.pingel@googlemail.com>
+
+	* src/java/org/xnap/commons/i18n/I18nManager.java: Do not set default locale anymore.
+
+	* src/java/org/xnap/commons/i18n/EmptyResourceBundle.java: Added locale parameter. 
+
+	* src/java/org/xnap/commons/i18n/I18n.java: Store only a single bundle and also store locale. 
+
+	* src/java/org/xnap/commons/i18n/I18nFactory.java: Added NO_CACHE flag, extracted caching to 
+	I18nCache. 
+
+	* src/java/org/xnap/commons/i18n/I18nCache.java: Cache by package and locale.
+
 2007-08-06  Steffen Pingel  <steffen.pingel@googlemail.com>
 
 	* src/java/org/xnap/commons/i18n/I18nFactory.java: Added private
