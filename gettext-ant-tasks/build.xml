@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="GettextTasks" basedir="." default="use">
+
+ <property name="src.dir" value="src/main/java"/>
+ <property name="classes.dir" value="target/classes"/>
+    
+ <target name="clean" description="Delete all generated files">
+       <delete dir="${classes.dir}" failonerror="false"/>
+       <delete file="${ant.project.name}.jar"/>
+ </target>  
+       
+ <target name="compile" description="Compiles the Task">
+        <javac srcdir="${src.dir}" destdir="${src.dir}"/>
+ </target>
+
+ <target name="jar" description="JARs the Task" depends="compile">
+       <delete file="${ant.project.name}.jar"/>
+       <jar destfile="${ant.project.name}.jar" basedir="${src.dir}"/>
+ </target>
+
+ <target name="use" description="Use the Task">
+       <taskdef name="gettext-extract"
+       classname="org.xnap.commons.ant.gettext.GettextExtractKeysTask"
+       classpath="${ant.project.name}.jar"/>
+ 	<taskdef name="gettext-merge"
+ 	       classname="org.xnap.commons.ant.gettext.GettextMergeKeysTask"
+ 	       classpath="${ant.project.name}.jar"/>
+ 	<taskdef name="gettext-dist"
+ 	 	       classname="org.xnap.commons.ant.gettext.GettextDistTask"
+ 	 	       classpath="${ant.project.name}.jar"/>
+       <gettext-extract poDirectory=".">
+             <fileset dir="/home/fberger/.workspace/limewire2/components/"
+	      includes="**/*.java"/>
+             <fileset dir="/home/fberger/.workspace/limewire2/core/"
+	      includes="**/*.java"/>
+             <fileset dir="/home/fberger/.workspace/limewire2/gui/"
+	      includes="**/*.java"/>
+       </gettext-extract>
+ </target>
+
+</project>
