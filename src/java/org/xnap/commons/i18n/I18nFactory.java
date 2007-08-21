@@ -22,8 +22,6 @@ package org.xnap.commons.i18n;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.Properties;
@@ -45,8 +43,6 @@ import java.util.Properties;
  */
 public class I18nFactory {
 
-	private static HashMap i18nByPackage = new HashMap();
-	
 	/** 
 	 * Use the default configuration.
 	 */
@@ -64,6 +60,13 @@ public class I18nFactory {
      * @since 0.9.1
      */
     public static final int READ_PROPERTIES = 2 << 0;
+    
+    /**
+     * Do not cache {@link I18n} instance.
+     * 
+     * @since 0.9.1
+     */
+    public static final int NO_CACHE = 4 << 0;
 
 	/**
 	 * Default name for Message bundles, is "i18n.Messages".
@@ -77,9 +80,10 @@ public class I18nFactory {
 	 * is "i18n.properties".
 	 */
 	public static final String PROPS_FILENAME = "i18n.properties";
+
+	private static final I18nCache i18nCache = new I18nCache();
 	
 	private I18nFactory() {
-	    
 	}
 	
 	/**
@@ -87,57 +91,25 @@ public class I18nFactory {
 	 */
 	static void clearCache()
 	{
-		for (Iterator it = i18nByPackage.values().iterator(); it.hasNext();) {
-			I18n i18n = (I18n)it.next();
-			I18nManager.getInstance().remove(i18n);
-		}
-		i18nByPackage.clear();
+		i18nCache.visit(new I18nCache.Visitor() {
+			public void visit(I18n i18n)
+			{
+				I18nManager.getInstance().remove(i18n);
+			}			
+		});
+		i18nCache.clear();
 	}
 	
-	static void registerI18n(I18n i18n, String base, Class clazz)
-	{
-		String path = clazz.getName();
-		if (!path.startsWith(base)) {
-			throw new IllegalArgumentException();
-		}
-		
-		synchronized (i18nByPackage) {
-			for (int index = path.lastIndexOf('.'); 
-				 index != -1 && path.length() > base.length();
-				 index = path.lastIndexOf('.')) {
-				path = path.substring(0, index);
-				i18nByPackage.put(path, i18n);
-			}
-		}
-	}
-	
-	private static void registerI18nForDefaultPackage(I18n i18n)
-	{
-		synchronized (i18nByPackage) {
-			i18nByPackage.put("", i18n);
+	static void registerI18n(final I18n i18n, final String base)
+	{	
+		synchronized (i18nCache) {
+			i18nCache.put(base, i18n);
 		}
 	}
 	
 	static boolean isInDefaultPackage(Class clazz)
 	{
 		return clazz.getName().indexOf('.') == -1;
-	}
-	
-	static I18n findI18nInDefaultPackage(String baseName, Locale locale, ClassLoader loader)
-	{
-		I18n i18n = (I18n)i18nByPackage.get("");
-		if (i18n != null) {
-			return i18n;
-		}
-		i18n = readFromPropertiesFile("", locale, loader);
-		if (i18n != null) {
-			return i18n;
-		}
-		i18n = findByBaseName(baseName, "", locale, loader);
-		if (i18n != null) {
-			return i18n;
-		}
-		return null;
 	}
 	
 	/**
@@ -198,56 +170,52 @@ public class I18nFactory {
 	 */
 	public static I18n getI18n(Class clazz, String baseName, Locale locale, int flags)
 	{
-		if (isInDefaultPackage(clazz)) {
-			I18n i18n = findI18nInDefaultPackage(baseName, locale, clazz.getClassLoader());
-			if (i18n != null) {
-				registerI18nForDefaultPackage(i18n);
-				return i18n;
+		String path;
+		I18n i18n = null;
+	
+		// look for cached versions and property files
+		path = getPackageName(clazz);
+		for (int index = path.lastIndexOf('.'); i18n == null && index != -1; 
+		index = path.lastIndexOf('.')) {
+			path = path.substring(0, index);
+
+			i18n = i18nCache.get(path, locale);
+
+			if (i18n == null && ((flags & READ_PROPERTIES) != 0)) {
+				i18n = readFromPropertiesFile(path, locale, clazz.getClassLoader(), flags);
 			}
-		} else {
-		    // look for cached versions and property files
-		    String path = clazz.getName();
-		    for (int index = path.lastIndexOf('.'); index != -1; 
-		    index = path.lastIndexOf('.')) {
-		        path = path.substring(0, index);
-		        I18n i18n = (I18n)i18nByPackage.get(path);
-		        if (i18n != null) {
-		            registerI18n(i18n, path, clazz);
-		            return i18n;
-		        }
-
-		        if ((flags & READ_PROPERTIES) != 0) {
-		            i18n = readFromPropertiesFile(path, locale, clazz.getClassLoader());
-		            if (i18n != null) {
-		                registerI18n(i18n, path, clazz);
-		                return i18n;
-		            }
-		        }
-		    }
-
-		    // look for bundle with baseName
-		    path = clazz.getName();
-		    for (int index = path.lastIndexOf('.'); index != -1; 
-		    index = path.lastIndexOf('.')) {
-		        path = path.substring(0, index);
-		        I18n i18n = findByBaseName(baseName, path, locale, clazz.getClassLoader());
-		        if (i18n != null) {
-		            registerI18n(i18n, path, clazz);
-		            return i18n;
-		        }
-		    }
 		}
+
+		// look for bundle with baseName
+		path = getPackageName(clazz); 
+		for (int index = path.lastIndexOf('.'); i18n == null && index != -1; 
+		index = path.lastIndexOf('.')) {
+			path = path.substring(0, index);
+			i18n = findByBaseName(baseName, path, locale, clazz.getClassLoader(), flags);
+		}
+
 		
-		if ((flags & FALLBACK) != 0) {
-		    I18n i18n = new I18n(new EmptyResourceBundle());
-		    registerI18n(i18n, "", clazz);
-            return i18n;
+		if (i18n == null && (flags & FALLBACK) != 0) {
+			path = "";
+		    i18n = new I18n(new EmptyResourceBundle(locale));
 		}
 		 
+		if (i18n != null) {
+			if ((flags & NO_CACHE) == 0) {
+				registerI18n(i18n, path);
+			}
+			return i18n;
+		}
+		
 		throw new MissingResourceException("resource bundle not found",
 		            clazz.getClass().getName(), baseName);
 	}
 	
+	private static String getPackageName(Class clazz)
+	{
+		return isInDefaultPackage(clazz) ? "." : clazz.getName();
+	}
+
 	/**
 	 * Tries to create an I18n instance from a properties file.
 	 * @param path
@@ -256,7 +224,7 @@ public class I18nFactory {
 	 * @throws MissingResourceException if properties file was found but 
 	 * specified resource not
 	 */
-	static I18n readFromPropertiesFile(String path, Locale locale, ClassLoader loader)
+	static I18n readFromPropertiesFile(String path, Locale locale, ClassLoader loader, int flags)
 	{
 		Properties props = new Properties();
 		path = path.length() == 0 ? PROPS_FILENAME : path.replace('.', '/')
@@ -279,7 +247,7 @@ public class I18nFactory {
 			}
 			String baseName = props.getProperty("basename");
 			if (baseName != null) {
-				return createI18n(baseName, locale, loader);
+				return createI18n(baseName, locale, loader, flags);
 			}
 		}
 		return null;
@@ -291,13 +259,14 @@ public class I18nFactory {
 	 * @param baseName the base name of the resource bundle
 	 * @param path the path that prefixes baseName 
 	 * @param loader the class loader used to look up the bundle
+	 * @param flags 
 	 * @return the created instance
 	 */
-	static I18n findByBaseName(String baseName, String path, Locale locale, ClassLoader loader)
+	static I18n findByBaseName(String baseName, String path, Locale locale, ClassLoader loader, int flags)
 	{
 		path = path.length() == 0 ? baseName : path + "." + baseName;
 		try {
-			return createI18n(path, locale, loader);
+			return createI18n(path, locale, loader, flags);
 		}
 		catch (MissingResourceException e) {
 			return null;
@@ -313,10 +282,12 @@ public class I18nFactory {
 	 * @return the created instance
 	 */
 	private static I18n createI18n(String baseName, Locale locale,
-								   ClassLoader loader)
+								   ClassLoader loader, int flags)
 	{
 		I18n i18n = new I18n(baseName, locale, loader);
-		I18nManager.getInstance().add(i18n);
+		if ((flags & NO_CACHE) == 0) {
+			I18nManager.getInstance().add(i18n);
+		}
 		return i18n;
 	}
 	

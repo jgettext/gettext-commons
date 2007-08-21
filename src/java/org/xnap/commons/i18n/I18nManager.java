@@ -72,7 +72,7 @@ public class I18nManager {
 	
 	/**
 	 * Sets the locale for all I18n instances that were instantiated through the
-	 * factory and invokes {@link Locale#setDefault(java.util.Locale)}.
+	 * factory.
 	 * <p>
 	 * Use this method to globally change the locale for all I18n based
 	 * translations.
@@ -86,8 +86,6 @@ public class I18nManager {
 	 */
 	public void setDefaultLocale(Locale locale) 
 	{
-		Locale.setDefault(locale);
-		
 		for (Iterator it = i18ns.iterator(); it.hasNext();) {
 			I18n i18n = (I18n) it.next();
 			i18n.setLocale(locale);

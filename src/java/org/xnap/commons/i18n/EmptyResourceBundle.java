@@ -1,6 +1,7 @@
 package org.xnap.commons.i18n;
 
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -11,6 +12,13 @@ import java.util.ResourceBundle;
  */
 class EmptyResourceBundle extends ResourceBundle
 {
+	private Locale locale;
+
+	public EmptyResourceBundle(Locale locale)
+	{
+		this.locale = locale;
+	}
+
 	/**
 	 * Returns the key as value.
 	 */
@@ -22,6 +30,11 @@ class EmptyResourceBundle extends ResourceBundle
 	public Enumeration getKeys() 
 	{
 		return new EmptyStringEnumeration();
+	}
+	
+	public Locale getLocale()
+	{
+		return locale;
 	}
 	
 	private static class EmptyStringEnumeration implements Enumeration
