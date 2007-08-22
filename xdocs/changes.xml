@@ -4,17 +4,48 @@
     <title>Changes</title>
   </properties>
   <body>
+    <release version="0.9.1" date="2007-08-22">
+      <action dev="steffen.pingel" type="update">
+		The project has been separated from the XNap Commons project
+		and moved to a new location:
+		http://code.google.com/p/gettext-commons/
+	  </action>
+      <action dev="steffen.pingel" type="add">
+		A locale parameter has been added to I18nFactory.getI18n()
+		(#1). 
+	  </action>
+      <action dev="steffen.pingel" type="update">
+		A flags parameter has been added to I18nFactory.getI18n() that
+		allows to fallback to a default resource bundle (#3) or to
+		disable caching.
+	  </action>
+      <action dev="steffen.pingel" type="update">
+		The resource bundle lookup has been enhanced to also look in
+		the default package when a class is passed to
+		I18nFactory.getI18n() that is not in the default package (#2).
+	  </action>
+      <action dev="steffen.pingel" type="update">
+		If a basename is passed to I18nFactory.getI18n() the classpath
+		is not searched for i18n.properties files anymore (#7)
+	  </action>
+      <action dev="steffen.pingel" type="update">
+		I18nManager.setDefaultLocale() does not invoke
+		Locale.setDefault() anymore (#6).
+	  </action>
+      <action dev="steffen.pingel" type="fix">
+		A NullPointerException has been fixed classes that were loaded
+		through the boot strap classloader were passed to
+		I18nFactory.getI18n() (#4).
+	  </action>
+	</release>
     <release version="0.9" date="2006-01-05">
       <action dev="squig" type="add">
 		Initial release. The project was formerly part of the XNap
-		Commons and is now distributed seperately. The changes
+		Commons and is now distributed separately. The changes
 		described for this release were made since XNap Commons
 		0.9.3 which was the last XNap Commons release that contained
 		gettext classes.
 	  </action>
-      <action dev="squig" type="add">
-		
-      </action>
 	</release>
   </body>
 </document>
