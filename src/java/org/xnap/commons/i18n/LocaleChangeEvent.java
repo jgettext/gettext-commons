@@ -1,5 +1,5 @@
 /*
- *  XNap Commons
+ *  Gettext Commons
  *
  *  Copyright (C) 2005  Steffen Pingel
  *
@@ -26,26 +26,34 @@ import java.util.Locale;
  * Provides information about a locale change.
  * 
  * @author Steffen Pingel
+ * @since 0.9
  */
 public class LocaleChangeEvent extends EventObject {
-	
+
 	private Locale newLocale;
 
+	/**
+	 * Constructs the event.
+	 * @param source the source of the event
+	 * @param newLocale the new locale
+	 * @since 0.9
+	 */
 	public LocaleChangeEvent(Object source, Locale newLocale)
 	{
 		super(source);
-		
+
 		this.newLocale = newLocale;
 	}
-	
+
 	/**
 	 * Returns the new locale.
 	 * 
 	 * @return the new locale
+	 * @since 0.9
 	 */
 	public Locale getNewLocale()
 	{
 		return newLocale;
 	}
-	
+
 }

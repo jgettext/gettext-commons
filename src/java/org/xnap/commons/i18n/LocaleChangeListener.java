@@ -1,5 +1,5 @@
 /*
- *  XNap Commons
+ *  Gettext Commons
  *
  *  Copyright (C) 2005  Steffen Pingel
  *
@@ -30,6 +30,7 @@ import java.util.Locale;
  * 
  * @see org.xnap.commons.i18n.I18nManager#setDefaultLocale(Locale)
  * @author Steffen Pingel
+ * @since 0.9
  */
 public interface LocaleChangeListener {
 	
@@ -37,6 +38,7 @@ public interface LocaleChangeListener {
 	 * Invoked when the local has changed.
 	 * 
 	 * @param event provides information about the new locale
+	 * @since 0.9
 	 */
 	void localeChanged(LocaleChangeEvent event);
 	

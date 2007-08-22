@@ -1,5 +1,5 @@
 /*
- *  XNap Commons
+ *  Gettext Commons
  *
  *  Copyright (C) 2005  Felix Berger
  *  Copyright (C) 2005  Steffen Pingel
@@ -40,17 +40,23 @@ import java.util.Properties;
  * @author Felix Berger
  * @author Tammo van Lessen
  * @author Steffen Pingel
+ * @since 0.9
  */
 public class I18nFactory {
 
 	private static final String BASENAME_KEY = "basename";
+	
 	/**
 	 * Use the default configuration.
+	 * 
+	 * @since 0.9.1
 	 */
 	public static final int DEFAULT = 0;
 	/**
 	 * Fall back to a default resource bundle that returns the passed text if no
 	 * resource bundle can be located.
+	 * 
+	 * @since 0.9.1
 	 */
 	public static final int FALLBACK = 1 << 0;
 	/**
@@ -65,17 +71,22 @@ public class I18nFactory {
 	 * @since 0.9.1
 	 */
 	public static final int NO_CACHE = 4 << 0;
+	
 	/**
 	 * Default name for Message bundles, is "i18n.Messages".
 	 * 
 	 * @since 0.9.1
 	 */
 	public static final String DEFAULT_BASE_NAME = "i18n.Messages";
+	
 	/**
 	 * Filename of the properties file that contains the i18n properties, is
 	 * "i18n.properties".
+	 * 
+	 * @since 0.9
 	 */
 	public static final String PROPS_FILENAME = "i18n.properties";
+	
 	private static final I18nCache i18nCache = new I18nCache();
 
 	private I18nFactory()
@@ -106,8 +117,10 @@ public class I18nFactory {
 	}
 
 	/**
-	 * Calls {@link #getI18n(Class, Locale, int) getI18n(clazz,
-	 * locale, READ_PROPERTIES)}.
+	 * Calls {@link #getI18n(Class, Locale, int) getI18n(clazz, locale,
+	 * READ_PROPERTIES)}.
+	 * 
+	 * @since 0.9.1
 	 */
 	public static I18n getI18n(final Class clazz, final Locale locale)
 	{
@@ -115,10 +128,39 @@ public class I18nFactory {
 	}
 
 	/**
-	 * TODO
+	 * Returns the I18n instance responsible for translating messages in the
+	 * package specified by <code>clazz</code>.
+	 * <p>
+	 * Lookup works by iterating upwards in the package hierarchy: First the
+	 * internal cache is asked for an I18n object for a package, otherwise the
+	 * algorithm looks for an <code>i18n.properties</code> file in the
+	 * package. The properties file is queried for a key named
+	 * <code>basename</code> whose value should be the fully qualified
+	 * resource/class name of the resource bundle, e.g
+	 * <code>org.xnap.commons.i18n.Messages</code>.
+	 * <p>
+	 * If after the first iteration no I18n instance has been found, a second
+	 * search begins by looking for resource bundles having the name
+	 * <code>baseName</code>.
+	 * 
+	 * @param clazz
+	 *            the package hierarchy of the clazz and its class loader are
+	 *            used for resolving and loading the resource bundle
+	 * @param baseName
+	 *            the name of the underlying resource bundle
+	 * @param locale
+	 *            the locale of the underlying resource bundle
+	 * @param flags
+	 *            a combination of these configuration flags: {@link #FALLBACK}
+	 * @return created or cached <code>I18n</code> instance
+	 * @throws MissingResourceException
+	 *             if no resource bundle was found
+	 * @since 0.9.1
 	 */
 	public static I18n getI18n(final Class clazz, final Locale locale, final int flags)
 	{
+		ClassLoader classLoader = getClassLoader(clazz.getClassLoader());
+		
 		String bundleName = null;
 		if (isReadPropertiesSet(flags)) {
 			String path = clazz.getName();
@@ -126,7 +168,7 @@ public class I18nFactory {
 			do {
 				index = path.lastIndexOf('.');
 				path = (index != -1) ? path.substring(0, index) : "";
-				bundleName = readFromPropertiesFile(path, locale, clazz.getClassLoader());
+				bundleName = readFromPropertiesFile(path, locale, classLoader);
 			}
 			while (bundleName == null && index != -1);
 		}
@@ -135,12 +177,14 @@ public class I18nFactory {
 			bundleName = DEFAULT_BASE_NAME;
 		}
 		
-		return getI18n("", bundleName, clazz.getClassLoader(), locale, flags);
+		return getI18n("", bundleName, classLoader, locale, flags);
 	}
 
 	/**
 	 * Calls
 	 * {@link #getI18n(Class, String, Locale) getI18n(clazz, bundleName, Locale.getDefault())}.
+	 * 
+	 * @since 0.9
 	 */
 	public static I18n getI18n(final Class clazz, final String bundleName)
 	{
@@ -150,6 +194,8 @@ public class I18nFactory {
 	/**
 	 * Calls
 	 * {@link #getI18n(Class, String, Locale, int) getI18n(clazz, bundleName, locale, DEFAULT)}.
+	 * 
+	 * @since 0.9.1
 	 */
 	public static I18n getI18n(final Class clazz, final String bundleName, final Locale locale)
 	{
@@ -159,84 +205,16 @@ public class I18nFactory {
 	/**
 	 * Calls
 	 * {@link #getI18n(Class, String, Locale) getI18n(getPackageName(clazz), bundleName, clazz.getClassLoader(), locale, DEFAULT)}.
+	 * 
+	 * @since 0.9.1
 	 */
 	public static I18n getI18n(final Class clazz, final String bundleName, final Locale locale, int flags)
 	{
 		return getI18n(clazz.getName(), bundleName, clazz.getClassLoader(), locale, flags);
 	}
 
-//	/**
-//	 * Returns the I18n instance responsible for translating messages in the
-//	 * package specified by <code>clazz</code>.
-//	 * <p>
-//	 * Lookup works by iterating upwards in the package hierarchy: First the
-//	 * internal cache is asked for an I18n object for a package, otherwise the
-//	 * algorithm looks for an <code>i18n.properties</code> file in the
-//	 * package. The properties file is queried for a key named
-//	 * <code>basename</code> whose value should be the fully qualified
-//	 * resource/class name of the resource bundle, e.g
-//	 * <code>org.xnap.commons.i18n.Messages</code>.
-//	 * <p>
-//	 * If after the first iteration no I18n instance has been found, a second
-//	 * search begins by looking for resource bundles having the name
-//	 * <code>baseName</code>.
-//	 * 
-//	 * @param clazz
-//	 *            the package hierarchy of the clazz and its class loader are
-//	 *            used for resolving and loading the resource bundle
-//	 * @param baseName
-//	 *            the name of the underlying resource bundle
-//	 * @param locale
-//	 *            the locale of the underlying resource bundle
-//	 * @param flags
-//	 *            a combination of these configuration flags: {@link #FALLBACK}
-//	 * @return created or cached <code>I18n</code> instance
-//	 * @throws MissingResourceException
-//	 *             if no resource bundle was found
-//	 * @since 0.9.1
-//	 */
-//	public static I18n getI18n(Class clazz, String baseName, Locale locale, int flags)
-//	{
-//
-//		String path;
-//		I18n i18n = null;
-//		// look for cached versions and property files
-//		path = getPackageName(clazz);
-//		int index;
-//		do {
-//			index = path.lastIndexOf('.');
-//			path = (index != -1) ? path.substring(0, index) : "";
-//			i18n = i18nCache.get(path, locale);
-//			if (i18n == null && ((flags & READ_PROPERTIES) != 0)) {
-//				i18n = readFromPropertiesFile(path, locale, clazz.getClassLoader(), flags);
-//			}
-//		}
-//		while (i18n == null && index != -1);
-//		// look for bundle with baseName
-//		if (i18n == null) {
-//			path = getPackageName(clazz);
-//			do {
-//				index = path.lastIndexOf('.');
-//				path = (index != -1) ? path.substring(0, index) : "";
-//				i18n = findByBaseName(baseName, path, locale, clazz.getClassLoader(), flags);
-//			}
-//			while (i18n == null && index != -1);
-//		}
-//		if (i18n == null && fallback(flags)) {
-//			path = "";
-//			i18n = new I18n(new EmptyResourceBundle(locale));
-//		}
-//		if (i18n != null) {
-//			if (!noCache(flags)) {
-//				registerI18n(i18n, path);
-//			}
-//			return i18n;
-//		}
-//		throw new MissingResourceException("resource bundle not found", clazz.getClass().getName(), baseName);
-//	}
-
 	/**
-	 * TODO
+	 * @since 0.9.1
 	 */
 	public static I18n getI18n(final String path, final String bundleName, final ClassLoader classLoader, final Locale locale,
 			final int flags)
@@ -256,7 +234,7 @@ public class I18nFactory {
 			}
 			
 			// look for resource bundle in class path
-			i18n = findByBaseName(name, locale, classLoader, flags);
+			i18n = findByBaseName(name, locale, getClassLoader(classLoader), flags);
 			if (i18n != null) {
 				if ((flags & NO_CACHE) == 0) {
 					i18nCache.put(name, i18n);
@@ -279,6 +257,10 @@ public class I18nFactory {
 		throw new MissingResourceException("Resource bundle not found", path, bundleName);
 	}
 
+	static ClassLoader getClassLoader(ClassLoader classLoader) {
+		return (classLoader != null) ? classLoader : ClassLoader.getSystemClassLoader();
+	}
+	
 	/**
 	 * Tries to create an I18n instance from a properties file.
 	 * 
@@ -355,7 +337,6 @@ public class I18nFactory {
 		return i18n;
 	}
 	
-
 	private static boolean isFallbackSet(final int flags)
 	{
 		return (flags & FALLBACK) != 0;

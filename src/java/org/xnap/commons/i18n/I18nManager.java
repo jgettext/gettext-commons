@@ -1,5 +1,5 @@
 /*
- *  XNap Commons
+ *  Gettext Commons
  *
  *  Copyright (C) 2005  Felix Berger
  *  Copyright (C) 2005  Steffen Pingel
@@ -30,46 +30,53 @@ import java.util.Locale;
  * Manager class that maintains a set of {@link org.xnap.commons.i18n.I18n}
  * objects and {@link org.xnap.commons.i18n.LocaleChangeListener} objects.
  * <p>
- * The locale of all managed <code>I18n</code> objects can be changed by 
+ * The locale of all managed <code>I18n</code> objects can be changed by
  * invoking {@link org.xnap.commons.i18n.I18nManager#setDefaultLocale(Locale)}.
  * 
  * @author Felix Berger
  * @author Steffen Pingel
+ * @since 0.9
  */
 public class I18nManager {
 
 	private static I18nManager instance = new I18nManager();
+
 	/** List of managed {@link I18n} objects. */
 	List i18ns = new ArrayList();
+
 	/** List of managed {@link LocaleChangeListener} objects. */
 	List localeChangeListeners = new ArrayList();
-	
+
 	private I18nManager()
 	{
 	}
-	
+
 	/**
 	 * Returns the global <code>I18Manger</code> singleton.
 	 * 
 	 * @return the <code>I18Manger</code> instance
+	 * @since 0.9
 	 */
 	public static I18nManager getInstance()
 	{
 		return instance;
 	}
-	
+
 	/**
-	 * Adds <code>i18n</code> to the list of managed <code>I18n</code> objects.
+	 * Adds <code>i18n</code> to the list of managed <code>I18n</code>
+	 * objects.
 	 * 
-	 * @param i18n the <code>I18n</code> instance
+	 * @param i18n
+	 *            the <code>I18n</code> instance
 	 * @see #setDefaultLocale(Locale)
 	 * @see #remove(I18n)
+	 * @since 0.9
 	 */
 	public void add(I18n i18n)
 	{
 		i18ns.add(i18n);
 	}
-	
+
 	/**
 	 * Sets the locale for all I18n instances that were instantiated through the
 	 * factory.
@@ -77,20 +84,22 @@ public class I18nManager {
 	 * Use this method to globally change the locale for all I18n based
 	 * translations.
 	 * <p>
-	 * NOTE: This only works if the objects that display messages
-	 * do not cache translated messages.
+	 * NOTE: This only works if the objects that display messages do not cache
+	 * translated messages.
 	 * <p>
 	 * 
-	 * @param locale the new default locale
+	 * @param locale
+	 *            the new default locale
 	 * @see I18n#setLocale(Locale)
+	 * @since 0.9
 	 */
-	public void setDefaultLocale(Locale locale) 
+	public void setDefaultLocale(Locale locale)
 	{
 		for (Iterator it = i18ns.iterator(); it.hasNext();) {
-			I18n i18n = (I18n) it.next();
+			I18n i18n = (I18n)it.next();
 			i18n.setLocale(locale);
 		}
-		
+
 		fireLocaleChangedEvent(locale);
 	}
 
@@ -98,8 +107,10 @@ public class I18nManager {
 	 * Adds a listener that is notified when the default locale has been
 	 * changed.
 	 * 
-	 * @param listener the listener
+	 * @param listener
+	 *            the listener
 	 * @see #setDefaultLocale(Locale)
+	 * @since 0.9
 	 */
 	public void addLocaleChangeListener(LocaleChangeListener listener)
 	{
@@ -116,8 +127,10 @@ public class I18nManager {
 	 * This is useful for temporary objects that may have an indeterminate
 	 * lifetime such as dialogs.
 	 * 
-	 * @param listener the listener
+	 * @param listener
+	 *            the listener
 	 * @see #setDefaultLocale(Locale)
+	 * @since 0.9
 	 */
 	public void addWeakLocaleChangeListener(LocaleChangeListener listener)
 	{
@@ -130,8 +143,10 @@ public class I18nManager {
 	 * Removes <code>i18n</code> from the list of managed <code>I18n</code>
 	 * objects.
 	 * 
-	 * @param i18n the <code>I18n</code> instance
+	 * @param i18n
+	 *            the <code>I18n</code> instance
 	 * @see #add(I18n)
+	 * @since 0.9
 	 */
 	public void remove(I18n i18n)
 	{
@@ -139,10 +154,12 @@ public class I18nManager {
 	}
 
 	/**
-	 * Removes <code>listener</code> from the list of objects that are 
+	 * Removes <code>listener</code> from the list of objects that are
 	 * notified when the locale has changed.
 	 * 
-	 * @param listener the listener
+	 * @param listener
+	 *            the listener
+	 * @since 0.9
 	 */
 	public void removeLocaleChangeListener(LocaleChangeListener listener)
 	{
@@ -150,10 +167,13 @@ public class I18nManager {
 			localeChangeListeners.remove(listener);
 		}
 	}
-	
+
 	/**
 	 * Notifies listeners of a locale change.
-	 * @param newLocale new locale
+	 * 
+	 * @param newLocale
+	 *            new locale
+	 * @since 0.9
 	 */
 	protected void fireLocaleChangedEvent(Locale newLocale)
 	{
@@ -166,19 +186,19 @@ public class I18nManager {
 			for (int i = listeners.length - 1; i >= 0; i--) {
 				listeners[i].localeChanged(event);
 			}
-		}		
+		}
 	}
-	
+
 	private static class WeakLocaleChangeListener implements LocaleChangeListener {
 
 		private WeakReference reference;
-		
+
 		public WeakLocaleChangeListener(LocaleChangeListener listener)
 		{
 			reference = new WeakReference(listener);
 		}
-		
-		public void localeChanged(LocaleChangeEvent event) 
+
+		public void localeChanged(LocaleChangeEvent event)
 		{
 			Object listener = reference.get();
 			if (listener != null) {
@@ -188,7 +208,7 @@ public class I18nManager {
 				I18nManager.getInstance().removeLocaleChangeListener(this);
 			}
 		}
-		
+
 	}
-	
+
 }

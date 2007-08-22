@@ -1,5 +1,5 @@
 /*
- *  XNap Commons
+ *  Gettext Commons
  *
  *  Copyright (C) 2005  Felix Berger
  *  Copyright (C) 2005  Steffen Pingel
@@ -31,12 +31,13 @@ import java.util.ResourceBundle;
  * Provides methods for internationalization.
  * <p>
  * To learn how message strings wrapped in one of the <code>tr*()</code>
- * methods can be extracted and localized, see this <a href="
- * http://xnap-commons.sourceforge.net/gettext-commons/tutorial.html"> tutorial</a>.
+ * methods can be extracted and localized, see <a
+ * href="http://code.google.com/p/gettext-commons/wiki/Tutorial">this tutorial</a>.
  * 
  * @author Steffen Pingel
  * @author Felix Berger
  * @author Tammo van Lessen
+ * @since 0.9
  */
 public class I18n {
 
@@ -44,14 +45,18 @@ public class I18n {
 	 * Reference to the current localization bundles.
 	 */
 	private ResourceBundle bundle;
+
 	/**
 	 * The locale of the strings used in the source code.
 	 * 
 	 * @see #trc(String, String)
 	 */
 	private Locale sourceCodeLocale = Locale.ENGLISH;
+
 	private String baseName;
+
 	private ClassLoader loader;
+
 	private Locale locale;
 
 	/**
@@ -61,6 +66,7 @@ public class I18n {
 	 *            must not be <code>null</code>
 	 * @throws NullPointerException
 	 *             if <code>bundle</code> is null
+	 * @since 0.9
 	 */
 	public I18n(ResourceBundle bundle)
 	{
@@ -75,6 +81,7 @@ public class I18n {
 	 *             if the resource bundle could not be loaded
 	 * @throws NullPointerException
 	 *             if one of the arguments is <code>null</code>
+	 * @since 0.9
 	 */
 	public I18n(String baseName, Locale locale, ClassLoader loader)
 	{
@@ -83,12 +90,23 @@ public class I18n {
 
 	/**
 	 * Returns the current resource bundle.
+	 * 
+	 * @since 0.9
 	 */
 	public ResourceBundle getResources()
 	{
 		return bundle;
 	}
 
+	/**
+	 * Returns the locale this instance was created with. This can be different
+	 * from the locale of the resource bundle returned by
+	 * {@link #getResources()}.
+	 * 
+	 * @return the locale or null, if this instance was directly created from a
+	 *         resource bundle
+	 * @since 0.9
+	 */
 	public Locale getLocale()
 	{
 		return locale;
@@ -101,6 +119,8 @@ public class I18n {
 	 * baseName are invalidated, since the bundle might be from a different
 	 * context. Subsequent calls to {@link #setLocale(Locale)} won't have any
 	 * effect.
+	 * 
+	 * @since 0.9
 	 */
 	public void setResources(ResourceBundle bundle)
 	{
@@ -122,6 +142,7 @@ public class I18n {
 	 *             if the bundle could not be loaded
 	 * @throws NullPointerException
 	 *             if one of the arguments is <code>null</code>
+	 * @since 0.9
 	 */
 	public void setResources(String baseName, Locale locale, ClassLoader loader)
 	{
@@ -134,6 +155,8 @@ public class I18n {
 	/**
 	 * Marks <code>text</code> to be translated, but doesn't return the
 	 * translation but <code>text</code> itself.
+	 * 
+	 * @since 0.9
 	 */
 	public static final String marktr(String text)
 	{
@@ -155,13 +178,15 @@ public class I18n {
 	 *             found
 	 * @throws NullPointerException
 	 *             if <code>locale</code> is null
+	 * @since 0.9
 	 */
 	public boolean setLocale(Locale locale)
 	{
 		if (baseName != null && loader != null) {
 			setResources(baseName, locale, loader);
 			return true;
-		} else {
+		}
+		else {
 			this.locale = locale;
 		}
 		return false;
@@ -176,9 +201,10 @@ public class I18n {
 	 * 
 	 * @param locale
 	 *            the locale
-	 * @see #trc(String, String)
 	 * @throws NullPointerException
 	 *             if <code>locale</code> is <code>null</code>
+	 * @see #trc(String, String)
+	 * @since 0.9
 	 */
 	public void setSourceCodeLocale(Locale locale)
 	{
@@ -196,6 +222,7 @@ public class I18n {
 	 * @param text
 	 *            text to translate
 	 * @return the translation
+	 * @since 0.9
 	 */
 	public final String tr(String text)
 	{
@@ -222,6 +249,7 @@ public class I18n {
 	 * @param objects
 	 *            arguments to <code>MessageFormat.format()</code>
 	 * @return the translated text
+	 * @since 0.9
 	 */
 	public final String tr(String text, Object[] objects)
 	{
@@ -230,6 +258,8 @@ public class I18n {
 
 	/**
 	 * Convenience method that invokes {@link #tr(String, Object[])}.
+	 * 
+	 * @since 0.9
 	 */
 	public final String tr(String text, Object o1)
 	{
@@ -238,6 +268,8 @@ public class I18n {
 
 	/**
 	 * Convenience method that invokes {@link #tr(String, Object[])}.
+	 * 
+	 * @since 0.9
 	 */
 	public final String tr(String text, Object o1, Object o2)
 	{
@@ -246,6 +278,8 @@ public class I18n {
 
 	/**
 	 * Convenience method that invokes {@link #tr(String, Object[])}.
+	 * 
+	 * @since 0.9
 	 */
 	public final String tr(String text, Object o1, Object o2, Object o3)
 	{
@@ -254,6 +288,8 @@ public class I18n {
 
 	/**
 	 * Convenience method that invokes {@link #tr(String, Object[])}.
+	 * 
+	 * @since 0.9
 	 */
 	public final String tr(String text, Object o1, Object o2, Object o3, Object o4)
 	{
@@ -271,6 +307,7 @@ public class I18n {
 	 * @param n
 	 *            value that determines the plural form
 	 * @return the translated text
+	 * @since 0.9
 	 */
 	public final String trn(String text, String pluralText, long n)
 	{
@@ -295,6 +332,7 @@ public class I18n {
 	 * @param objects
 	 *            object args to be formatted and substituted.
 	 * @return the translated text
+	 * @since 0.9
 	 */
 	public final String trn(String text, String pluralText, long n, Object[] objects)
 	{
@@ -305,6 +343,8 @@ public class I18n {
 	 * Overloaded method that invokes
 	 * {@link #trn(String, String, long, Object[])} passing <code>Object</code>
 	 * arguments as an array.
+	 * 
+	 * @since 0.9
 	 */
 	public final String trn(String text, String pluralText, long n, Object o1)
 	{
@@ -315,6 +355,8 @@ public class I18n {
 	 * Overloaded method that invokes
 	 * {@link #trn(String, String, long, Object[])} passing <code>Object</code>
 	 * arguments as an array.
+	 * 
+	 * @since 0.9
 	 */
 	public final String trn(String text, String pluralText, long n, Object o1, Object o2)
 	{
@@ -325,6 +367,8 @@ public class I18n {
 	 * Overloaded method that invokes
 	 * {@link #trn(String, String, long, Object[])} passing <code>Object</code>
 	 * arguments as an array.
+	 * 
+	 * @since 0.9
 	 */
 	public final String trn(String text, String pluralText, long n, Object o1, Object o2, Object o3)
 	{
@@ -335,6 +379,8 @@ public class I18n {
 	 * Overloaded method that invokes
 	 * {@link #trn(String, String, long, Object[])} passing <code>Object</code>
 	 * arguments as an array.
+	 * 
+	 * @since 0.9
 	 */
 	public final String trn(String text, String pluralText, long n, Object o1, Object o2, Object o3, Object o4)
 	{
@@ -435,9 +481,11 @@ public class I18n {
 	 *         bundle equals the source code locale, the translation of
 	 *         <code>comment</code> otherwise.
 	 * @see #setSourceCodeLocale(Locale)
+	 * @since 0.9
 	 */
 	public final String trc(String comment, String text)
 	{
 		return sourceCodeLocale.equals(getResources().getLocale()) ? text : tr(comment);
 	}
+
 }
