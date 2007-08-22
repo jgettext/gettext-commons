@@ -1,8 +1,9 @@
 package org.xnap.commons.i18n;
 
-import java.util.List;
 import java.util.Locale;
+
 import junit.framework.TestCase;
+
 import org.xnap.commons.i18n.testpackage.MockResourceBundle;
 import org.xnap.commons.i18n.testpackage.noresources.HasNoOwnResources;
 import org.xnap.commons.i18n.testpackage.resources.HasItsOwnResources;

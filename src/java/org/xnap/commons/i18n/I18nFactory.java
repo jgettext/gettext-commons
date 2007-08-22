@@ -22,7 +22,6 @@ package org.xnap.commons.i18n;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Reader;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.Properties;
@@ -268,7 +267,7 @@ public class I18nFactory {
 		while (index != -1);
 		
 		// fallback to default bundle
-		if ((flags & FALLBACK) != 0) {
+		if (isFallbackSet(flags)) {
 			I18n i18n = i18nCache.get("", locale);
 			if (i18n == null) {
 				i18n = new I18n(new EmptyResourceBundle(locale));
