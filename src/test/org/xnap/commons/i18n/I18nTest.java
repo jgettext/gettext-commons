@@ -37,7 +37,7 @@ public class I18nTest extends TestCase {
 		try {
 			i18nDE = new I18n(BASENAME, Locale.GERMAN, getClass().getClassLoader());
 		} catch (MissingResourceException e) {
-			throw new RuntimeException("Please make sure you run mvn org.xnap.commons:maven-gettext-plugin:dist before executing tests");
+			throw new RuntimeException("Please make sure you run 'mvn org.xnap.commons:maven-gettext-plugin:dist' before executing tests");
 		}
 		i18nEN = new I18n(BASENAME, Locale.ENGLISH, getClass().getClassLoader());
 	}
