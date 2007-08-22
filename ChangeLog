@@ -1,9 +1,13 @@
-2007-08-22 Steffen Pingel <steffen.pingel@googlemail.com>
+2006-08-22  Steffen Pingel  <steffen.pingel@googlemail.com>
+
+	* Gettext Commons 0.9.1 released
+
+2007-08-22  Steffen Pingel  <steffen.pingel@googlemail.com>
 
 	* src/java/org/xnap/commons/i18n/I18nFactory.java: Modified lookup strategy to
 	only check for property files when no bundle name is provided.
 
-2007-08-21 Steffen Pingel <steffen.pingel@googlemail.com>
+2007-08-21  Steffen Pingel  <steffen.pingel@googlemail.com>
 
 	* src/java/org/xnap/commons/i18n/I18nManager.java: Do not set default locale anymore.
 
