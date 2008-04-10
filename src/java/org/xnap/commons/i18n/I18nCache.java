@@ -21,6 +21,7 @@
 package org.xnap.commons.i18n;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +35,10 @@ import java.util.Map;
  */
 class I18nCache {
 	
-	private final Map i18nByPackage = new HashMap();
+	/**
+	 * Map<String, List<I18n>>, list is synchronized too.
+	 */
+	private final Map i18nByPackage = Collections.synchronizedMap(new HashMap());
 
 	I18nCache()
 	{
@@ -53,10 +57,12 @@ class I18nCache {
 		
 		List list = (List)i18nByPackage.get(packageName);
 		if (list != null) {
-			for (Iterator it = list.iterator(); it.hasNext();) {
-				I18n i18n = (I18n)it.next();
-				if (locale.equals(i18n.getLocale())) {
-					return i18n;
+			synchronized (list) {
+				for (Iterator it = list.iterator(); it.hasNext();) {
+					I18n i18n = (I18n)it.next();
+					if (locale.equals(i18n.getLocale())) {
+						return i18n;
+					}
 				}
 			}
 		}
@@ -67,7 +73,7 @@ class I18nCache {
 	{
 		List list = (List)i18nByPackage.get(packageName);
 		if (list == null) {
-			list = new ArrayList();
+			list = Collections.synchronizedList(new ArrayList(2));
 			i18nByPackage.put(packageName, list);
 		}
 		list.add(i18n);
@@ -75,11 +81,15 @@ class I18nCache {
 
 	public void visit(final Visitor visitor)
 	{
-		for (Iterator it = i18nByPackage.values().iterator(); it.hasNext();) {
-			List list = (List)it.next();
-			for (Iterator it2 = list.iterator(); it2.hasNext();) {
-				I18n i18n = (I18n)it2.next();
-				visitor.visit(i18n);
+		synchronized (i18nByPackage) {
+			for (Iterator it = i18nByPackage.values().iterator(); it.hasNext();) {
+				List list = (List)it.next();
+				synchronized (list) {
+					for (Iterator it2 = list.iterator(); it2.hasNext();) {
+						I18n i18n = (I18n)it2.next();
+						visitor.visit(i18n);
+					}
+				}
 			}
 		}
 	}

@@ -44,20 +44,20 @@ public class I18n {
 	/**
 	 * Reference to the current localization bundles.
 	 */
-	private ResourceBundle bundle;
+	private volatile ResourceBundle bundle;
 
 	/**
 	 * The locale of the strings used in the source code.
 	 * 
 	 * @see #trc(String, String)
 	 */
-	private Locale sourceCodeLocale = Locale.ENGLISH;
+	private volatile Locale sourceCodeLocale = Locale.ENGLISH;
 
 	private String baseName;
 
 	private ClassLoader loader;
 
-	private Locale locale;
+	private volatile Locale locale;
 
 	/**
 	 * Constructs an I18n object for a resource bundle.
@@ -122,7 +122,7 @@ public class I18n {
 	 * 
 	 * @since 0.9
 	 */
-	public void setResources(ResourceBundle bundle)
+	public synchronized void setResources(ResourceBundle bundle)
 	{
 		if (bundle == null) {
 			throw new NullPointerException();
@@ -144,7 +144,7 @@ public class I18n {
 	 *             if one of the arguments is <code>null</code>
 	 * @since 0.9
 	 */
-	public void setResources(String baseName, Locale locale, ClassLoader loader)
+	synchronized void setResources(String baseName, Locale locale, ClassLoader loader)
 	{
 		this.bundle = ResourceBundle.getBundle(baseName, locale, loader);
 		this.baseName = baseName;
@@ -180,7 +180,7 @@ public class I18n {
 	 *             if <code>locale</code> is null
 	 * @since 0.9
 	 */
-	public boolean setLocale(Locale locale)
+	public synchronized boolean setLocale(Locale locale)
 	{
 		if (baseName != null && loader != null) {
 			setResources(baseName, locale, loader);

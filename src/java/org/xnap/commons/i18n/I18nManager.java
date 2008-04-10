@@ -22,6 +22,7 @@ package org.xnap.commons.i18n;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -42,7 +43,7 @@ public class I18nManager {
 	private static I18nManager instance = new I18nManager();
 
 	/** List of managed {@link I18n} objects. */
-	List i18ns = new ArrayList();
+	List i18ns = Collections.synchronizedList(new ArrayList());
 
 	/** List of managed {@link LocaleChangeListener} objects. */
 	List localeChangeListeners = new ArrayList();
@@ -95,11 +96,12 @@ public class I18nManager {
 	 */
 	public void setDefaultLocale(Locale locale)
 	{
-		for (Iterator it = i18ns.iterator(); it.hasNext();) {
-			I18n i18n = (I18n)it.next();
-			i18n.setLocale(locale);
+		synchronized (i18ns) {
+			for (Iterator it = i18ns.iterator(); it.hasNext();) {
+				I18n i18n = (I18n)it.next();
+				i18n.setLocale(locale);
+			}
 		}
-
 		fireLocaleChangedEvent(locale);
 	}
 
