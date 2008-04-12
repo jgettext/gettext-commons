@@ -1,3 +1,9 @@
+2008-04-12  Felix Berger  <felixberger@beldesign.de>
+
+	* src/java/org/xnap/commons/i18n/I18nCache.java: Fixed
+	synchronization and improved visitor traversal by moving it out of
+	the synchronized block.
+
 2008-04-10  Felix Berger  <felixberger@beldesign.de>
 
 	* src/java/org/xnap/commons/i18n/I18n.java: Made thread-safe.

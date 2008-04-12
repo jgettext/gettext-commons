@@ -71,24 +71,29 @@ class I18nCache {
 
 	public void put(String packageName, I18n i18n)
 	{
-		List list = (List)i18nByPackage.get(packageName);
-		if (list == null) {
-			list = Collections.synchronizedList(new ArrayList(2));
-			i18nByPackage.put(packageName, list);
+		List list;
+		synchronized (i18nByPackage) {
+			list = (List)i18nByPackage.get(packageName);
+			if (list == null) {
+				list = Collections.synchronizedList(new ArrayList(2));
+				i18nByPackage.put(packageName, list);
+			}
 		}
 		list.add(i18n);
 	}
 
 	public void visit(final Visitor visitor)
 	{
+		List[] lists;
 		synchronized (i18nByPackage) {
-			for (Iterator it = i18nByPackage.values().iterator(); it.hasNext();) {
-				List list = (List)it.next();
-				synchronized (list) {
-					for (Iterator it2 = list.iterator(); it2.hasNext();) {
-						I18n i18n = (I18n)it2.next();
-						visitor.visit(i18n);
-					}
+			 lists = (List[])i18nByPackage.values().toArray(new List[0]);
+		}
+		for (int i = 0; i < lists.length; i++) {
+			List list = lists[i];
+			synchronized (list) {
+				for (Iterator it2 = list.iterator(); it2.hasNext();) {
+					I18n i18n = (I18n)it2.next();
+					visitor.visit(i18n);
 				}
 			}
 		}
