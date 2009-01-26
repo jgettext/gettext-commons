@@ -52,7 +52,7 @@ class I18nCache {
 	public I18n get(final String packageName, final Locale locale)
 	{
 		if (locale == null) {
-			throw new IllegalArgumentException();
+			throw new NullPointerException("locale is null");
 		}
 		
 		List list = (List)i18nByPackage.get(packageName);
