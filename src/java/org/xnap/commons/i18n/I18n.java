@@ -146,7 +146,7 @@ public class I18n {
 	 *             if one of the arguments is <code>null</code>
 	 * @since 0.9
 	 */
-	synchronized void setResources(String baseName, Locale locale, ClassLoader loader)
+	public synchronized void setResources(String baseName, Locale locale, ClassLoader loader)
 	{
 		this.bundle = ResourceBundle.getBundle(baseName, locale, loader);
 		this.baseName = baseName;
