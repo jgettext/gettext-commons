@@ -41,6 +41,8 @@ import java.util.ResourceBundle;
  */
 public class I18n {
 
+	private static final String CONTEXT_GLUE = "\u0004";
+	
 	/**
 	 * Reference to the current localization bundles.
 	 */
@@ -473,19 +475,115 @@ public class I18n {
 	/**
 	 * Disambiguates translation keys.
 	 * 
-	 * @param comment
-	 *            the text translated + a disambiguation hint in brackets.
+	 * @param context
+	 *            the context of the text to be translated
 	 * @param text
-	 *            the ambiguous key string
+	 *            the ambiguous key message in the source locale
 	 * @return <code>text</code> if the locale of the underlying resource
 	 *         bundle equals the source code locale, the translation of
 	 *         <code>comment</code> otherwise.
 	 * @see #setSourceCodeLocale(Locale)
 	 * @since 0.9
 	 */
-	public final String trc(String comment, String text)
+	public final String trc(String context, String text)
 	{
-		return sourceCodeLocale.equals(getResources().getLocale()) ? text : tr(comment);
+		if (sourceCodeLocale.equals(getResources().getLocale())) { 
+			return text;
+		} else {
+			String key = context + CONTEXT_GLUE + text; 
+			String translated = tr(key);
+			// if no translation was found return text in source locale
+			return translated == key ? text : translated;
+		}
+	}
+	
+	/** 
+	 * Returns the plural form for <code>n</code> of the translation of
+	 * <code>text</code>.
+	 * 
+	 * @param context
+	 * 			  the context of the message to disambiguate it when translating
+	 * @param text
+	 *            the key string to be translated.
+	 * @param pluralText
+	 *            the plural form of <code>text</code>.
+	 * @param n
+	 *            value that determines the plural form
+	 * @return the translated text
+	 * @since 0.9.5
+	 */
+	public final String trnc(String context, String singularText, String pluralText, long n) {
+		try {
+			return trnInternal(bundle, context + CONTEXT_GLUE + singularText, pluralText, n);
+		}
+		catch (MissingResourceException e) {
+			return (n == 1) ? singularText : pluralText;
+		}
 	}
 
+	/**
+	 * Returns the plural form for <code>n</code> of the translation of
+	 * <code>text</code>.
+	 * 
+	 * @param context
+	 * 			  the context of the message to disambiguate it when translating
+	 * @param text
+	 *            the key string to be translated.
+	 * @param pluralText
+	 *            the plural form of <code>text</code>.
+	 * @param n
+	 *            value that determines the plural form
+	 * @param objects
+	 *            object args to be formatted and substituted.
+	 * @return the translated text
+	 * @since 0.9
+	 */
+	public final String trnc(String context, String singularText, String pluralText, long n, Object[] objects) {
+		return MessageFormat.format(trnc(context, singularText, pluralText, n), objects);
+	}
+
+	/**
+	 * Overloaded method that invokes
+	 * {@link #trnc(String, String, String, long, Object[]) passing <code>obj</code>
+	 * arguments as an array.
+	 * 
+	 * @since 0.9.5
+	 */
+	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj) {
+		return MessageFormat.format(trnc(comment, singularText, pluralText, n), new Object[] { obj });
+	}
+	
+	/**
+	 * Overloaded method that invokes
+	 * {@link #trnc(String, String, String, long, Object[]) passing <code>obj1</code> and <code>obj2</code> 
+	 * arguments as an array.
+	 * 
+	 * @since 0.9.5
+	 */
+	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj1, Object obj2) {
+		return MessageFormat.format(trnc(comment, singularText, pluralText, n), new Object[] { obj1, obj2 });
+	}
+	
+	/**
+	 * Overloaded method that invokes
+	 * {@link #trnc(String, String, String, long, Object[]) passing <code>obj1</code>, <code>obj2</code> and <code>obj3</code>
+	 * arguments as an array.
+	 * 
+	 * @since 0.9.5
+	 */
+	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj1, Object obj2, Object obj3) {
+		return MessageFormat.format(trnc(comment, singularText, pluralText, n), new Object[] { obj1, obj2, obj3 });
+	}
+	
+	/**
+	 * Overloaded method that invokes
+	 * {@link #trnc(String, String, String, long, Object[]) passing <code>obj1</code>, <code>obj2</code>, <code>obj3</code> and <code>obj4</code>
+	 * arguments as an array.
+	 * 
+	 * @since 0.9.5
+	 */
+	public final String trnc(String comment, String singularText, String pluralText, long n, Object obj1, Object obj2, Object obj3, Object obj4) {
+		return MessageFormat.format(trnc(comment, singularText, pluralText, n), new Object[] { obj1, obj2, obj3, obj4 });
+	}
+	
 }

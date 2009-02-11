@@ -1,14 +1,13 @@
-# translation of de.po to
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Steffen Pingel <steffenp@gmx.de>, 2005.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-22 18:23+0100\n"
-"PO-Revision-Date: 2005-12-22 18:52+0100\n"
+"POT-Creation-Date: 2009-02-10 19:33-0500\n"
+"PO-Revision-Date: 2009-02-10 19:36-0500\n"
 "Last-Translator: Steffen Pingel <steffenp@gmx.de>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,99 +16,169 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: KBabel 1.10.2\n"
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nFactoryTest.java:55
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nFactoryTest.java:56
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nFactoryTest.java:63
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nFactoryTest.java:64
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nFactoryTest.java:73
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nFactoryTest.java:74
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nFactoryTest.java:107
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nFactoryTest.java:110
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:178
-msgid "value"
-msgstr "Wert"
+#: src/test/org/xnap/commons/i18n/I18nTest.java:59
+msgid "house"
+msgstr "Haus"
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nFactoryTest.java:99
-msgid "own"
-msgstr ""
+#: src/test/org/xnap/commons/i18n/I18nTest.java:60
+msgid "mouse"
+msgstr "Maus"
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:50
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:82
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:159
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:160
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:161
-msgid "Foo"
-msgid_plural "Bar"
-msgstr[0] ""
-msgstr[1] ""
-
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:51
-msgid "Bar"
-msgstr ""
-
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:52
+#: src/test/org/xnap/commons/i18n/I18nTest.java:61
 msgid "Automatic"
 msgstr "Automatisch"
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:53
+#: src/test/org/xnap/commons/i18n/I18nTest.java:62
 msgid "Completion"
 msgstr "Ergänzung"
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:58
+#: src/test/org/xnap/commons/i18n/I18nTest.java:67
 #, java-format
-msgid "Foo {0} "
-msgstr ""
+msgid "House Nr. {0} "
+msgstr "Haus Nr. {0}"
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:59
+#: src/test/org/xnap/commons/i18n/I18nTest.java:68
 #, java-format
 msgid "{0}"
-msgstr ""
+msgstr "{0}"
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:64
+#: src/test/org/xnap/commons/i18n/I18nTest.java:73
+#: src/test/org/xnap/commons/i18n/I18nTest.java:169
 #, java-format
 msgid "Foo {1} {0}"
-msgstr ""
+msgid_plural "Foos"
+msgstr[0] "Foo {1} {0}"
+msgstr[1] "Foos"
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:65
+#: src/test/org/xnap/commons/i18n/I18nTest.java:74
+#: src/test/org/xnap/commons/i18n/I18nTest.java:170
 #, java-format
 msgid "Foo {0} {1}"
-msgstr ""
+msgid_plural "Foos"
+msgstr[0] ""
+msgstr[1] ""
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:70
+#: src/test/org/xnap/commons/i18n/I18nTest.java:79
+#: src/test/org/xnap/commons/i18n/I18nTest.java:175
 #, java-format
 msgid "Foo {1} {2} {0}"
-msgstr ""
+msgid_plural "Foos"
+msgstr[0] ""
+msgstr[1] ""
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:71
+#: src/test/org/xnap/commons/i18n/I18nTest.java:80
+#: src/test/org/xnap/commons/i18n/I18nTest.java:176
 #, java-format
 msgid "Foo {0} {1} {2}"
-msgstr ""
+msgid_plural "Foos"
+msgstr[0] ""
+msgstr[1] ""
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:76
+#: src/test/org/xnap/commons/i18n/I18nTest.java:85
+#: src/test/org/xnap/commons/i18n/I18nTest.java:182
 #, java-format
 msgid "Foo {1} {2} {3} {0}"
-msgstr ""
+msgid_plural "Foos"
+msgstr[0] ""
+msgstr[1] ""
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:77
+#: src/test/org/xnap/commons/i18n/I18nTest.java:86
+#: src/test/org/xnap/commons/i18n/I18nTest.java:184
 #, java-format
 msgid "Foo {0} {1} {2} {3}"
-msgstr ""
+msgid_plural "Foos"
+msgstr[0] ""
+msgstr[1] ""
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:87
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:88
-msgid "Foo (context)"
-msgstr "KontextFoo"
+#: src/test/org/xnap/commons/i18n/I18nTest.java:91
+#: src/test/org/xnap/commons/i18n/I18nTest.java:151
+#: src/test/org/xnap/commons/i18n/I18nTest.java:152
+#: src/test/org/xnap/commons/i18n/I18nTest.java:153
+#, java-format
+msgid "Foo"
+msgid_plural "{0} Bars"
+msgstr[0] "Foo"
+msgstr[1] "{0} Bars"
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:144
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:147
-msgid "foo"
-msgstr ""
+#: src/test/org/xnap/commons/i18n/I18nTest.java:96
+#: src/test/org/xnap/commons/i18n/I18nTest.java:98
+msgctxt "noun"
+msgid "chat"
+msgstr "Chat"
 
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:166
-#: /home/stp/projects/xnap-commons/gettext-commons/src/test/org/xnap/commons/i18n/I18nTest.java:167
+#: src/test/org/xnap/commons/i18n/I18nTest.java:97
+#: src/test/org/xnap/commons/i18n/I18nTest.java:99
+#: src/test/org/xnap/commons/i18n/I18nTest.java:138
+#: src/test/org/xnap/commons/i18n/I18nTest.java:140
+msgctxt "verb"
+msgid "chat"
+msgstr "Chatten"
+
+#: src/test/org/xnap/commons/i18n/I18nTest.java:158
+#: src/test/org/xnap/commons/i18n/I18nTest.java:159
 #, java-format
 msgid "File"
 msgid_plural "{0} Files"
 msgstr[0] "Datei"
 msgstr[1] "{0} Dateien"
 
+#: src/test/org/xnap/commons/i18n/I18nTest.java:164
+#, java-format
+msgid "Foo {0} "
+msgid_plural "Foos {0}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/test/org/xnap/commons/i18n/I18nTest.java:195
+#: src/test/org/xnap/commons/i18n/I18nFactoryTest.java:67
+#: src/test/org/xnap/commons/i18n/I18nFactoryTest.java:75
+#: src/test/org/xnap/commons/i18n/I18nFactoryTest.java:111
+#: src/test/org/xnap/commons/i18n/I18nFactoryTest.java:114
+msgid "value"
+msgstr "Wert"
+
+#: src/test/org/xnap/commons/i18n/I18nTest.java:199
+msgctxt "dont translate to German"
+msgid "baobab"
+msgstr ""
+
+#: src/test/org/xnap/commons/i18n/I18nFactoryTest.java:96
+msgid "source"
+msgstr ""
+
+#: src/test/org/xnap/commons/i18n/I18nFactoryTest.java:103
+msgid "own"
+msgstr ""
+
+#: src/examples/I18nExample.java:39
+msgid "This text is marked for translation and is translated"
+msgstr ""
+
+#: src/examples/I18nExample.java:46
+msgid "This text is marked for translation but not translated"
+msgstr ""
+
+#: src/examples/I18nExample.java:62
+#, java-format
+msgid "Four: {0}"
+msgstr ""
+
+#: src/examples/I18nExample.java:70
+msgctxt "chat (verb)"
+msgid "chat"
+msgstr ""
+
+#: src/examples/I18nExample.java:72
+msgctxt "chat (noun)"
+msgid "chat"
+msgstr ""
+
+#: src/examples/I18nExample.java:78 src/examples/I18nExample.java:80
+#, java-format
+msgid "{0} file is open"
+msgid_plural "{0} files are open"
+msgstr[0] ""
+msgstr[1] ""
+
+#~ msgid "Foo (context)"
+#~ msgstr "KontextFoo"

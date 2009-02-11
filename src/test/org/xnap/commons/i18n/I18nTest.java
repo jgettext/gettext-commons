@@ -56,15 +56,15 @@ public class I18nTest extends TestCase {
 
 	public void testTr()
 	{
-		assertEquals("Foo", i18nDE.tr("Foo"));
-		assertEquals("Bar", i18nDE.tr("Bar"));
+		assertEquals("Haus", i18nDE.tr("house"));
+		assertEquals("Maus", i18nDE.tr("mouse"));
 		assertEquals("Automatisch", i18nDE.tr("Automatic"));
 		assertEquals("Erg\u00e4nzung", i18nDE.tr("Completion"));
 	}
 
 	public void testTr1()
 	{
-		assertEquals("Foo foo ", i18nEN.tr("Foo {0} ", "foo"));
+		assertEquals("House Nr. 2 ", i18nEN.tr("House Nr. {0} ", Integer.valueOf(2)));
 		assertEquals("0", i18nEN.tr("{0}", "0"));
 	}
 
@@ -93,8 +93,10 @@ public class I18nTest extends TestCase {
 
 	public void testTrc()
 	{
-		assertEquals("Foo", i18nEN.trc("Foo (context)", "Foo"));
-		assertEquals("KontextFoo", i18nDE.trc("Foo (context)", "Foo"));
+		assertEquals("chat", i18nEN.trc("noun", "chat"));
+		assertEquals("chat", i18nEN.trc("verb", "chat"));
+		assertEquals("Chat", i18nDE.trc("noun", "chat"));
+		assertEquals("Chatten", i18nDE.trc("verb", "chat"));
 	}
 
 	public void testSetLocale()
@@ -133,9 +135,9 @@ public class I18nTest extends TestCase {
 	public void testSetSourceCodeLocale()
 	{
 		i18nDE.setSourceCodeLocale(Locale.GERMAN);
-		assertEquals("bar", i18nDE.trc("foo (verb)", "bar"));
+		assertEquals("chat", i18nDE.trc("verb", "chat"));
 		i18nDE.setSourceCodeLocale(Locale.ENGLISH);
-		assertEquals("foo (verb)", i18nDE.trc("foo (verb)", "bar"));
+		assertEquals("Chatten", i18nDE.trc("verb", "chat"));
 
 		try {
 			i18nDE.setSourceCodeLocale(null);
@@ -146,8 +148,8 @@ public class I18nTest extends TestCase {
 
 	public void testTrnEN()
 	{
-		assertEquals("Foo", i18nEN.trn("Foo", "Bar", 1));
-		assertEquals("Bar", i18nEN.trn("Foo", "Bar", 2));
+		assertEquals("Foo", i18nEN.trn("Foo", "{0} Bars", 1));
+		assertEquals("{0} Bars", i18nEN.trn("Foo", "{0} Bars", 2));
 		assertEquals("2 Bars", i18nEN.trn("Foo", "{0} Bars", 2, new Integer(2)));
 	}
 
@@ -193,4 +195,7 @@ public class I18nTest extends TestCase {
 		assertEquals("value", i18nDE.tr("value"));
 	}
 
+	public void testTrcReturnsTextWhenTranslationNotFound() {
+		assertEquals("baobab", i18nDE.trc("dont translate to German", "baobab"));
+	}
 }
