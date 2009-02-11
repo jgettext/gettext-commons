@@ -5,7 +5,7 @@
 	<groupId>org.xnap.commons</groupId>
 	<artifactId>gettext-commons</artifactId>
 	<packaging>jar</packaging>
-	<version>0.9.5</version>
+	<version>0.9.6</version>
 	<name>Gettext Commons</name>
 	<url>http://code.google.com/p/gettext-commons/</url>
 	<description>
