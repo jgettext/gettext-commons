@@ -52,7 +52,7 @@
 			scm:svn:http://gettext-commons.googlecode.com/svn/trunk
 		</connection>
 		<developerConnection>
-			scm:cvs:https://gettext-commons.googlecode.com/svn/trunk
+			scm:svn:https://gettext-commons.googlecode.com/svn/trunk
 		</developerConnection>
 		<url>http://gettext-commons.googlecode.com/svn/trunk</url>
 	</scm>
