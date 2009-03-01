@@ -21,16 +21,14 @@
   &lt;dependency&gt;
     &lt;groupId&gt;org.xnap.commons&lt;/groupId&gt;
     &lt;artifactId&gt;gettext-commons&lt;/artifactId&gt;
-    &lt;version&gt;0.9.1&lt;/version&gt;
-    &lt;url&gt;http://xnap-commons.sf.net/gettext-commons/&lt;/url&gt;
+    &lt;version&gt;0.9.6&lt;/version&gt;
   &lt;/dependency&gt;
 &lt;/dependencies&gt;
 ...
 &lt;repositories&gt;
   &lt;repository&gt;
-    &lt;id&gt;xnap-commons&lt;/id&gt;
-    &lt;name&gt;XNap Commons Repository&lt;/name&gt;
-    &lt;url&gt;http://xnap-commons.sourceforge.net/repository&lt;/url&gt;
+    &lt;id&gt;gettext-commons-site&lt;/id&gt;
+    &lt;url&gt;http://gettext-commons.googlecode.com/svn/maven-repository/&lt;/url&gt;
   &lt;/repository&gt;
 &lt;/repositories&gt;
 ...
