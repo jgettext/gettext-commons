@@ -131,14 +131,14 @@
 			<id>xnap-commons</id>
 			<name>XNap Commons Site</name>
 			<url>
-				scp://shell.sf.net//home/groups/x/xn/xnap-commons/htdocs/gettext-commons/
+			  file://
 			</url>
 		</site>
 		<repository>
 			<id>xnap-commons</id>
 			<name>XNap Commons Repository</name>
 			<url>
-				scp://shell.sf.net//home/groups/x/xn/xnap-commons/htdocs/repository
+			  file://
 			</url>
 		</repository>
 	</distributionManagement>
