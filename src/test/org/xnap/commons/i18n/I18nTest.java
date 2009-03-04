@@ -64,7 +64,7 @@ public class I18nTest extends TestCase {
 
 	public void testTr1()
 	{
-		assertEquals("House Nr. 2 ", i18nEN.tr("House Nr. {0} ", Integer.valueOf(2)));
+		assertEquals("House Nr. 2 ", i18nEN.tr("House Nr. {0} ", new Integer(2)));
 		assertEquals("0", i18nEN.tr("{0}", "0"));
 	}
 
