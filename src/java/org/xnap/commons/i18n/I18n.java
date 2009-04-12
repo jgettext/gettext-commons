@@ -480,8 +480,9 @@ public class I18n {
 	 * @param text
 	 *            the ambiguous key message in the source locale
 	 * @return <code>text</code> if the locale of the underlying resource
-	 *         bundle equals the source code locale, the translation of
-	 *         <code>comment</code> otherwise.
+	 *         bundle equals the source code locale, the disambiguated
+	 *         translation of <code>text</code> otherwise
+	 *         
 	 * @see #setSourceCodeLocale(Locale)
 	 * @since 0.9
 	 */

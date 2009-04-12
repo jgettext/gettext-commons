@@ -39,12 +39,26 @@
 			<url>http://steffenpingel.de</url>
 		</developer>
 	</developers>
+	<repositories>
+		<repository>
+			<id>gettext-commons-site</id>
+			<url>http://gettext-commons.googlecode.com/svn/maven-repository/</url>
+			<releases>
+				<updatePolicy>daily</updatePolicy>
+			</releases>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.xnap.commons</groupId>
+			<artifactId>maven-gettext-plugin</artifactId>
+			<version>1.2.0</version>
 		</dependency>
 	</dependencies>
 	<scm>
