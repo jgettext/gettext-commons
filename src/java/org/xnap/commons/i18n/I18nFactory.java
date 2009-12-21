@@ -146,8 +146,6 @@ public class I18nFactory {
 	 * @param clazz
 	 *            the package hierarchy of the clazz and its class loader are
 	 *            used for resolving and loading the resource bundle
-	 * @param baseName
-	 *            the name of the underlying resource bundle
 	 * @param locale
 	 *            the locale of the underlying resource bundle
 	 * @param flags

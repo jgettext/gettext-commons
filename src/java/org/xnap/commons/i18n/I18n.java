@@ -504,7 +504,7 @@ public class I18n {
 	 * 
 	 * @param context
 	 * 			  the context of the message to disambiguate it when translating
-	 * @param text
+	 * @param singularText
 	 *            the key string to be translated.
 	 * @param pluralText
 	 *            the plural form of <code>text</code>.
@@ -528,7 +528,7 @@ public class I18n {
 	 * 
 	 * @param context
 	 * 			  the context of the message to disambiguate it when translating
-	 * @param text
+	 * @param singularText
 	 *            the key string to be translated.
 	 * @param pluralText
 	 *            the plural form of <code>text</code>.
@@ -545,7 +545,7 @@ public class I18n {
 
 	/**
 	 * Overloaded method that invokes
-	 * {@link #trnc(String, String, String, long, Object[]) passing <code>obj</code>
+	 * {@link #trnc(String, String, String, long, Object[])} passing <code>obj</code>
 	 * arguments as an array.
 	 * 
 	 * @since 0.9.5
@@ -556,7 +556,7 @@ public class I18n {
 	
 	/**
 	 * Overloaded method that invokes
-	 * {@link #trnc(String, String, String, long, Object[]) passing <code>obj1</code> and <code>obj2</code> 
+	 * {@link #trnc(String, String, String, long, Object[])} passing <code>obj1</code> and <code>obj2</code> 
 	 * arguments as an array.
 	 * 
 	 * @since 0.9.5
@@ -567,7 +567,7 @@ public class I18n {
 	
 	/**
 	 * Overloaded method that invokes
-	 * {@link #trnc(String, String, String, long, Object[]) passing <code>obj1</code>, <code>obj2</code> and <code>obj3</code>
+	 * {@link #trnc(String, String, String, long, Object[])} passing <code>obj1</code>, <code>obj2</code> and <code>obj3</code>
 	 * arguments as an array.
 	 * 
 	 * @since 0.9.5
@@ -578,7 +578,7 @@ public class I18n {
 	
 	/**
 	 * Overloaded method that invokes
-	 * {@link #trnc(String, String, String, long, Object[]) passing <code>obj1</code>, <code>obj2</code>, <code>obj3</code> and <code>obj4</code>
+	 * {@link #trnc(String, String, String, long, Object[])} passing <code>obj1</code>, <code>obj2</code>, <code>obj3</code> and <code>obj4</code>
 	 * arguments as an array.
 	 * 
 	 * @since 0.9.5
