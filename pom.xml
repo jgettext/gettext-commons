@@ -58,7 +58,7 @@
 		<dependency>
 			<groupId>org.xnap.commons</groupId>
 			<artifactId>maven-gettext-plugin</artifactId>
-			<version>1.2.0</version>
+			<version>1.2.1</version>
 		</dependency>
 	</dependencies>
 	<scm>
@@ -171,7 +171,7 @@
 				<groupId>org.xnap.commons</groupId>
 				<artifactId>maven-gettext-plugin</artifactId>
 				<configuration>
-					<poDirectory>po</poDirectory>
+					<sourceDirectory>src/test</sourceDirectory>
 					<targetBundle>
 						org.xnap.commons.i18n.Messages
 					</targetBundle>
