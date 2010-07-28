@@ -48,6 +48,15 @@
 			</releases>
 		</repository>
 	</repositories>
+	<pluginRepositories>
+	  <pluginRepository>
+	    <id>gettext-commons-site</id>
+	    <url>http://gettext-commons.googlecode.com/svn/maven-repository/</url>
+	    <releases>
+	      <updatePolicy>daily</updatePolicy>
+	    </releases>
+	  </pluginRepository>
+	</pluginRepositories>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -58,7 +67,7 @@
 		<dependency>
 			<groupId>org.xnap.commons</groupId>
 			<artifactId>maven-gettext-plugin</artifactId>
-			<version>1.2.1</version>
+			<version>1.2.2</version>
 		</dependency>
 	</dependencies>
 	<scm>
