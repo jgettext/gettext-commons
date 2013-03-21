@@ -1,3 +1,8 @@
+2013-03-21 Nicolas Fortin <nicolas.fortin@ec-nantes.fr>
+
+    * pom.xml: Use maven bundle plugin in order to generate META-INF/MANIFEST.MF OSGi file.
+	* Gettext Commons 0.9.7 released
+
 2008-04-12  Felix Berger  <felixberger@beldesign.de>
 
 	* src/java/org/xnap/commons/i18n/I18nCache.java: Fixed
