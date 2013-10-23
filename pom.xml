@@ -5,7 +5,7 @@
 	<groupId>org.xnap.commons</groupId>
 	<artifactId>gettext-commons</artifactId>
 	<packaging>jar</packaging>
-	<version>0.9.7</version>
+	<version>0.9.8</version>
 	<name>Gettext Commons</name>
 	<url>http://code.google.com/p/gettext-commons/</url>
 	<description>
@@ -38,6 +38,14 @@
 			</roles>
 			<url>http://steffenpingel.de</url>
 		</developer>
+    <developer>
+      <name>Nicolas Fortin</name>
+      <id>nicolas-f</id>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <url>http://www.orbisgis.org</url>
+    </developer>
 	</developers>
 	<repositories>
 		<repository>
@@ -63,11 +71,6 @@
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.xnap.commons</groupId>
-			<artifactId>maven-gettext-plugin</artifactId>
-			<version>1.2.2</version>
 		</dependency>
 	</dependencies>
 	<scm>
