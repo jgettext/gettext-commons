@@ -38,9 +38,9 @@ public class I18nCacheTest extends TestCase {
 		assertNull(cache.get("foo", Locale.getDefault()));
 		try {
 			cache.get("foo", null);
-			fail("Expected IllegalArgumentException");
+			fail("Expected NullPointerException");
 		}
-		catch (IllegalArgumentException expected) {}
+		catch (NullPointerException expected) {}
 		i18n.setLocale(Locale.ENGLISH);
 		assertSame(i18n, cache.get("foo", Locale.ENGLISH));
 	}
