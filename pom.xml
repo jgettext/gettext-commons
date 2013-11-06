@@ -1,125 +1,125 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.xnap.commons</groupId>
-	<artifactId>gettext-commons</artifactId>
-	<packaging>jar</packaging>
-	<version>0.9.8</version>
-	<name>Gettext Commons</name>
-	<url>http://code.google.com/p/gettext-commons/</url>
-	<description>
-		A library that supports gettext-based internationalization
-		(i18n) of Java applications.
-	</description>
-  <licenses>
-    <license>
-      <name>GNU Library or Lesser General Public License (LGPL)</name>
-      <url>http://www.gnu.org/licenses/lgpl.html</url>
-    </license>
-  </licenses>
-	<developers>
-		<developer>
-			<name>Felix Berger</name>
-			<id>bergerfx</id>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<url>http://www.felix.beldesign.de/</url>
-		</developer>
-		<developer>
-			<name>Tammo van Lessen</name>
-			<id>tvanlessen</id>
-			<roles>
-				<role>Developer</role>
-			</roles>
-			<url>http://taval.de/</url>
-		</developer>
-		<developer>
-			<name>Steffen Pingel</name>
-			<id>steffen.pingel</id>
-			<roles>
-				<role>Project Manager</role>
-				<role>Developer</role>
-			</roles>
-			<url>http://steffenpingel.de</url>
-		</developer>
-    <developer>
-      <name>Nicolas Fortin</name>
-      <id>nicolas-f</id>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <url>http://www.orbisgis.org</url>
-    </developer>
-	</developers>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<scm>
-		<connection>
-			scm:svn:http://gettext-commons.googlecode.com/svn/trunk
-		</connection>
-		<developerConnection>
-			scm:svn:https://gettext-commons.googlecode.com/svn/trunk
-		</developerConnection>
-		<url>http://gettext-commons.googlecode.com/svn/trunk</url>
-	</scm>
-	<build>
-		<sourceDirectory>src/java</sourceDirectory>
-		<testSourceDirectory>src/test</testSourceDirectory>
-		<resources>
-			<resource>
-				<directory>src/conf</directory>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test-resources</directory>
-			</testResource>
-		</testResources>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>1.4</source>
-						<target>1.4</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-eclipse-plugin</artifactId>
-					<configuration>
-						<projectnatures>
-							<java.lang.String>
-								org.eclipse.jdt.core.javanature
-							</java.lang.String>
-						</projectnatures>
-						<buildcommands>
-							<java.lang.String>
-								org.eclipse.jdt.core.javabuilder
-							</java.lang.String>
-						</buildcommands>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-        <version>2.14</version>
-				<configuration>
-					<testFailureIgnore>true</testFailureIgnore>
-				</configuration>
-			</plugin>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.googlecode.gettext-commons</groupId>
+    <artifactId>gettext-commons</artifactId>
+    <packaging>jar</packaging>
+    <version>0.9.8-SNAPSHOT</version>
+    <name>Gettext Commons</name>
+    <url>http://code.google.com/p/gettext-commons/</url>
+    <description>
+        A library that supports gettext-based internationalization
+        (i18n) of Java applications.
+    </description>
+    <licenses>
+        <license>
+            <name>GNU Library or Lesser General Public License (LGPL)</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>Felix Berger</name>
+            <id>bergerfx</id>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <url>http://www.felix.beldesign.de/</url>
+        </developer>
+        <developer>
+            <name>Tammo van Lessen</name>
+            <id>tvanlessen</id>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <url>http://taval.de/</url>
+        </developer>
+        <developer>
+            <name>Steffen Pingel</name>
+            <id>steffen.pingel</id>
+            <roles>
+                <role>Project Manager</role>
+                <role>Developer</role>
+            </roles>
+            <url>http://steffenpingel.de</url>
+        </developer>
+        <developer>
+            <name>Nicolas Fortin</name>
+            <id>nicolas-f</id>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <url>http://www.orbisgis.org</url>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <scm>
+        <connection>
+            scm:svn:http://gettext-commons.googlecode.com/svn/trunk
+        </connection>
+        <developerConnection>
+            scm:svn:https://gettext-commons.googlecode.com/svn/trunk
+        </developerConnection>
+        <url>http://gettext-commons.googlecode.com/svn/trunk</url>
+    </scm>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <testSourceDirectory>src/test</testSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/conf</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test-resources</directory>
+            </testResource>
+        </testResources>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.4</source>
+                        <target>1.4</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <configuration>
+                        <projectnatures>
+                            <java.lang.String>
+                                org.eclipse.jdt.core.javanature
+                            </java.lang.String>
+                        </projectnatures>
+                        <buildcommands>
+                            <java.lang.String>
+                                org.eclipse.jdt.core.javabuilder
+                            </java.lang.String>
+                        </buildcommands>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.14</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
@@ -169,53 +169,28 @@
                 </executions>
             </plugin>
             <plugin>
-              <groupId>org.xnap.commons</groupId>
-              <artifactId>maven-gettext-plugin</artifactId>
-              <version>1.2.3</version>
-              <executions>
-                <execution>
-                  <id>convert-po-class</id>
-                  <phase>compile</phase>
-                  <goals>
-                    <goal>dist</goal>
-                  </goals>
-                </execution>
-              </executions>
-              <configuration>
-                <sourceDirectory>src/test</sourceDirectory>
-                <targetBundle>
-                  org.xnap.commons.i18n.Messages
-                </targetBundle>
-                <poDirectory>${basedir}/po</poDirectory>
-                <outputDirectory>${build.testOutputDirectory}</outputDirectory>
-              </configuration>
+                <groupId>org.xnap.commons</groupId>
+                <artifactId>maven-gettext-plugin</artifactId>
+                <version>1.2.3</version>
+                <executions>
+                    <execution>
+                        <id>convert-po-class</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>dist</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sourceDirectory>src/test</sourceDirectory>
+                    <targetBundle>
+                        org.xnap.commons.i18n.Messages
+                    </targetBundle>
+                    <poDirectory>${basedir}/po</poDirectory>
+                    <outputDirectory>${build.testOutputDirectory}</outputDirectory>
+                </configuration>
             </plugin>
 
-    </plugins>
-	</build>
-	<distributionManagement>
-		<site>
-			<id>xnap-commons</id>
-			<name>XNap Commons Site</name>
-			<url>
-				scp://shell.sf.net//home/groups/x/xn/xnap-commons/htdocs/gettext-commons/
-			</url>
-		</site>
-		<repository>
-			<id>xnap-commons</id>
-			<name>XNap Commons Repository</name>
-			<url>
-				scp://shell.sf.net//home/groups/x/xn/xnap-commons/htdocs/repository
-			</url>
-		</repository>
-	</distributionManagement>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>gettext-commons-site</id>
-      <url>http://gettext-commons-maven-repository.googlecode.com/svn/repository/</url>
-      <releases>
-        <updatePolicy>daily</updatePolicy>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
+        </plugins>
+    </build>
 </project>
