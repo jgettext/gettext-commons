@@ -1,11 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.googlecode.gettext-commons</groupId>
     <artifactId>gettext-commons</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.8-SNAPSHOT</version>
+    <version>0.9.8</version>
     <name>Gettext Commons</name>
     <url>http://code.google.com/p/gettext-commons/</url>
     <description>
@@ -63,12 +61,12 @@
     </dependencies>
     <scm>
         <connection>
-            scm:svn:http://gettext-commons.googlecode.com/svn/trunk
+            scm:svn:http://gettext-commons.googlecode.com/svn/tags/gettext-commons-0_9_8
         </connection>
         <developerConnection>
-            scm:svn:https://gettext-commons.googlecode.com/svn/trunk
+            scm:svn:https://gettext-commons.googlecode.com/svn/tags/gettext-commons-0_9_8
         </developerConnection>
-        <url>http://gettext-commons.googlecode.com/svn/trunk</url>
+        <url>http://gettext-commons.googlecode.com/svn/tags/gettext-commons-0_9_8</url>
     </scm>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
