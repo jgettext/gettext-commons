@@ -169,9 +169,9 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.xnap.commons</groupId>
-                <artifactId>maven-gettext-plugin</artifactId>
-                <version>1.2.3</version>
+                <groupId>com.googlecode.gettext-commons</groupId>
+                <artifactId>gettext-maven-plugin</artifactId>
+                <version>1.2.4</version>
                 <executions>
                     <execution>
                         <id>convert-po-class</id>
