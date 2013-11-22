@@ -3,7 +3,7 @@
     <groupId>com.googlecode.gettext-commons</groupId>
     <artifactId>gettext-commons</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.8</version>
+    <version>0.9.9-SNAPSHOT</version>
     <name>Gettext Commons</name>
     <url>http://code.google.com/p/gettext-commons/</url>
     <description>
@@ -61,12 +61,12 @@
     </dependencies>
     <scm>
         <connection>
-            scm:svn:http://gettext-commons.googlecode.com/svn/tags/gettext-commons-0_9_8
+            scm:svn:http://gettext-commons.googlecode.com/svn/trunk
         </connection>
         <developerConnection>
-            scm:svn:https://gettext-commons.googlecode.com/svn/tags/gettext-commons-0_9_8
+            scm:svn:https://gettext-commons.googlecode.com/svn/trunk
         </developerConnection>
-        <url>http://gettext-commons.googlecode.com/svn/tags/gettext-commons-0_9_8</url>
+        <url>http://gettext-commons.googlecode.com/svn/trunk</url>
     </scm>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
