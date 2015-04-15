@@ -1,0 +1,1 @@
+Javadocs can be found [here](http://gettext-commons.googlecode.com/svn/apidocs/index.html).
